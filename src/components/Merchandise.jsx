@@ -184,8 +184,8 @@ export function Merchandise({ onProductClick }) {
       rating: 4.8,
       reviews: 6,
       features: ["Exclusive set", "Limited release", "Great value"],
-      sizes: ["Bundle"],
-      colors: []
+      sizes: ["S", "M", "L", "XL"],
+      colors: [{ name: "White", hex: "#FFFFFF" }]
     },
   ];
 
