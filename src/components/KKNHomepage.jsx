@@ -28,6 +28,60 @@ const CIRCLE_POSITIONS = [
   { left: 234, top: 280 },
 ];
 
+const SNOW_POSITIONS = [
+  { left: 120, bottom: 180, size: 120, opacity: 0.55, blur: false },
+  { left: 420, bottom: 60, size: 160, opacity: 0.4, blur: true },
+  { left: 820, bottom: 120, size: 140, opacity: 0.5, blur: false },
+  { left: 1080, bottom: 40, size: 180, opacity: 0.35, blur: true },
+  { left: 1260, bottom: 160, size: 110, opacity: 0.6, blur: false },
+];
+
+const PROGRAM_SNOW_POSITIONS = [
+  { left: 60, top: 1080, size: 150, opacity: 0.45, blur: true },
+  { left: 220, top: 1200, size: 110, opacity: 0.6, blur: false },
+  { left: 2120, top: 1920, size: 140, opacity: 0.5, blur: true },
+  { left: 640, top: 1120, size: 120, opacity: 0.55, blur: false },
+  { left: 20, top: 1960, size: 160, opacity: 0.4, blur: true },
+  { left: 980, top: 1140, size: 120, opacity: 0.6, blur: false },
+  { left: 1120, top: 2320, size: 150, opacity: 0.45, blur: true },
+  { left: 160, top: 2380, size: 110, opacity: 0.6, blur: false },
+  { left: 1300, top: 2000, size: 110, opacity: 0.6, blur: false },
+];
+
+const WAVE_SNOW_POSITIONS = [
+  { left: 980, top: 800, size: 140, opacity: 0.3, blur: true },
+];
+
+const DOT_SNOW_POSITIONS = [
+  { left: 120, top: 1620, size: 10, opacity: 0.6, type: "dot" },
+  { left: 260, top: 1720, size: 40, opacity: 0.5, type: "small" },
+  { left: 420, top: 1640, size: 12, opacity: 0.55, type: "dot" },
+  { left: 600, top: 1760, size: 40, opacity: 0.45, type: "small" },
+  { left: 780, top: 1660, size: 11, opacity: 0.5, type: "dot" },
+  { left: 980, top: 1720, size: 40, opacity: 0.45, type: "small" },
+  { left: 1160, top: 640, size: 12, opacity: 0.6, type: "dot" },
+  { left: 180, top: 1900, size: 40, opacity: 0.45, type: "small" },
+  { left: 360, top: 1980, size: 10, opacity: 0.55, type: "dot" },
+  { left: 540, top: 1880, size: 40, opacity: 0.5, type: "small" },
+  { left: 720, top: 2580, size: 11, opacity: 0.55, type: "dot" },
+  { left: 900, top: 2500, size: 40, opacity: 0.45, type: "small" },
+  { left: 1080, top: 2580, size: 10, opacity: 0.6, type: "dot" },
+  { left: 1240, top: 2500, size: 40, opacity: 0.45, type: "small" },
+  { left: 220, top: 2180, size: 10, opacity: 0.55, type: "dot" },
+  { left: 460, top: 2100, size: 40, opacity: 0.5, type: "small" },
+  { left: 700, top: 2200, size: 11, opacity: 0.55, type: "dot" },
+  { left: 940, top: 2100, size: 40, opacity: 0.5, type: "small" },
+  { left: 1180, top: 2180, size: 10, opacity: 0.55, type: "dot" },
+  { left: 1840, top: 2500, size: 40, opacity: 0.45, type: "small" },
+  { left: 1500, top: 2400, size: 40, opacity: 0.45, type: "small" },
+  { left: 1840, top: 2500, size: 40, opacity: 0.45, type: "small" },
+  { left: 20, top: 2180, size: 14, opacity: 0.55, type: "dot" },
+  { left: 460, top: 2100, size: 40, opacity: 0.5, type: "small" },
+  { left: 700, top: 2250, size: 11, opacity: 0.55, type: "dot" },
+  { left: 1940, top: 2900, size: 40, opacity: 0.5, type: "small" },
+  { left: 1380, top: 2180, size: 10, opacity: 0.55, type: "dot" },
+];
+
 function SectionTitlePill({ children, gradient = "right" }) {
   const titleGradient =
     gradient === "right"
@@ -47,25 +101,51 @@ function SectionTitlePill({ children, gradient = "right" }) {
   );
 }
 
-function ProgramCard({ title, emoji, className = "" }) {
+function ProgramCard({
+  title,
+  imageSrc,
+  description,
+  className = "",
+  titleClassName = "",
+  titleTextClassName = "",
+  mascotSrc,
+  mascotClassName = "",
+}) {
   return (
-    <div className={`flex flex-col items-center ${className}`}>
-      <div className="bg-[#d0e4ff] px-6 py-2 rounded-[42px] inline-block mb-4">
-        <p className="font-['Inter'] font-bold text-[#091f5b] text-[18px] sm:text-[20px] lg:text-[25px] tracking-[-0.625px] text-center">
+    <div className={`relative flex flex-col items-center group ${className}`}>
+      <div className={`bg-[#d0e4ff] w-[232px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center -mb-6 relative z-10 ${titleClassName}`}>
+        <p className={`font-['Inter'] font-bold text-[#091f5b] text-[20px] lg:text-[26px] tracking-[-0.625px] text-center ${titleTextClassName}`}>
           {title}
         </p>
       </div>
 
       <button
         type="button"
-        className="bg-[#d0e4ff] w-[286px] sm:w-[320px] rounded-[25px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] p-4 cursor-pointer hover:scale-105 transition-transform"
+        className="bg-[#d0e4ff] w-[310px] h-[270px] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] px-4 pb-4 pt-9 cursor-pointer hover:scale-105 transition-transform flex flex-col items-center"
       >
-        <div className="bg-[#6f96d1] rounded-[13px] h-[155px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] flex items-center justify-center">
-          <span className="text-white text-5xl" aria-hidden>
-            {emoji}
-          </span>
+        <div className="w-[273px] h-[165px] rounded-[14px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden">
+          <img
+            src={imageSrc}
+            alt=""
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
+        {description && (
+          <p className="mt-4 font-['Inter'] font-light text-[13px] leading-[16px] text-center tracking-[-0.025em] text-[#091F5B] px-2">
+            {description}
+          </p>
+        )}
       </button>
+
+      {mascotSrc && (
+        <img
+          src={mascotSrc}
+          alt="Program Mascot"
+          className={`absolute pointer-events-none z-20 hover:scale-110 transition-transform duration-300 ${mascotClassName}`}
+          loading="lazy"
+        />
+      )}
     </div>
   );
 }
@@ -124,13 +204,119 @@ export function KKNHomepage() {
         <img alt="" className="absolute h-[162px] left-[1200px] top-[120px] w-[161px]" src="/assets/snow.png" />
         <img alt="" className="absolute blur-sm h-[162px] w-[161px] left-[790px] top-[550px] z-10" src="/assets/snow.png" />
         <img alt="" className="absolute blur-sm left-[1105px] size-[104px] top-[620px]" src="/assets/snow.png" />
-        <img alt="" className="absolute h-[240px] left-[1110px] top-[800px] w-[232px] z-10" src="/assets/pinko1.png" />
+        <img alt="" className="absolute h-[240px] left-[1110px] top-[900px] w-[232px] z-10" src="/assets/pinko1.png" />
+
+        {/* Bottom snow accents */}
+        {SNOW_POSITIONS.map((pos, i) => (
+          <img
+            key={`snow-bottom-${i}`}
+            alt=""
+            src="/assets/snow.png"
+            className={`absolute ${pos.blur ? "blur-sm" : ""}`}
+            style={{
+              left: pos.left,
+              bottom: pos.bottom,
+              width: pos.size,
+              height: pos.size,
+              opacity: pos.opacity,
+            }}
+          />
+        ))}
+
+        {/* Our Program snow accents */}
+        {PROGRAM_SNOW_POSITIONS.map((pos, i) => (
+          <img
+            key={`snow-program-${i}`}
+            alt=""
+            src="/assets/snow.png"
+            className={`absolute ${pos.blur ? "blur-sm" : ""}`}
+            style={{
+              left: pos.left,
+              top: pos.top,
+              width: pos.size,
+              height: pos.size,
+              opacity: pos.opacity,
+            }}
+          />
+        ))}
+
+        {/* Wave area snow accents */}
+        {WAVE_SNOW_POSITIONS.map((pos, i) => (
+          <img
+            key={`snow-wave-${i}`}
+            alt=""
+            src="/assets/snow.png"
+            className={`absolute ${pos.blur ? "blur-sm" : ""}`}
+            style={{
+              left: pos.left,
+              top: pos.top,
+              width: pos.size,
+              height: pos.size,
+              opacity: pos.opacity,
+            }}
+          />
+        ))}
+
+        {/* Dot snow accents below hero */}
+        {DOT_SNOW_POSITIONS.map((pos, i) => (
+          <img
+            key={`dot-snow-${i}`}
+            alt=""
+            src={pos.type === "dot" ? "/assets/dotSnow.png" : "/assets/smallSnow.png"}
+            className="absolute"
+            style={{
+              left: pos.left,
+              top: pos.top,
+              width: pos.size,
+              height: pos.size,
+              opacity: pos.opacity,
+            }}
+          />
+        ))}
+
+        {/* Wave between Program and Participant */}
+        <div className="hidden lg:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-[2100px] w-screen h-[1383px] overflow-hidden">
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1280 1383">
+            <g filter="url(#filter0_f_12_1166)">
+              <path
+                d="M1490.5 25C1490.5 25 992.618 470.03 518 470.03C43.3817 470.03 -481.5 946 -481.5 946L-563 1357.5C-563 1357.5 32.5039 766.132 518 766.132C1003.5 766.132 1453 442 1453 442L1490.5 25Z"
+                fill="url(#paint0_linear_12_1166)"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_12_1166"
+                x="-588"
+                y="0"
+                width="2103.5"
+                height="1382.5"
+                filterUnits="userSpaceOnUse"
+                colorInterpolationFilters="sRGB"
+              >
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                <feGaussianBlur stdDeviation="12.5" result="effect1_foregroundBlur_12_1166" />
+              </filter>
+              <linearGradient
+                id="paint0_linear_12_1166"
+                x1="1233.65"
+                y1="435.666"
+                x2="-310.171"
+                y2="1368.71"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#D0E4FF" />
+                <stop offset="1" stopColor="#091F5B" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
       </div>
 
       {/* MAIN CONTENT (Natural Flow) */}
       <main className="relative w-full max-w-[1300px] mx-auto px-6 lg:px-16 pb-24">
         {/* HERO (flow + responsive grid) */}
-        <section className="pt-10 lg:pt-16">
+        <section className="pt-16 lg:pt-28">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left */}
             <div className="text-center lg:text-left">
@@ -144,9 +330,8 @@ export function KKNHomepage() {
                 kita bareng!
               </h1>
 
-              <p className="font-['Inter'] font-light text-[#091f5b] text-[16px] lg:text-[20px] tracking-[-0.5px] leading-relaxed w-full max-w-[620px] mt-6 mx-auto lg:mx-0">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem necessitatibus illo quis tenetur, saepe dolore incidunt ullam vero eveniet
-                quam?
+              <p className="font-['Inter'] font-light text-[#091f5b] text-[16px] lg:text-[20px] tracking-[-0.5px] leading-relaxed w-full max-w-[620px] mt-6 mx-auto lg:mx-0 text-justify">
+                Hamkke Bareng is a community service team under the collaboration with SNU-SR, organized by six seventh-semester students united by a shared commitment to growth, collaboration, and social impact. Coming from diverse academic backgrounds and areas of expertise, each member contributes unique skills and perspectives that strengthen our collective work. Through teamwork and mutual support, we strive to create meaningful, sustainable contributions to the communities we serve. Hamkke Bareng, Kita Bareng!
               </p>
 
               <button
@@ -178,11 +363,10 @@ export function KKNHomepage() {
 
           <div className="mt-8 flex justify-center">
             <div className="bg-[#d0e4ff] rounded-[25px] shadow-[0px_0px_15px_5px_rgba(9,31,91,0.05)] w-full max-w-[894px] p-8 lg:p-12">
-              <p className="font-['Inter'] font-light text-[#091f5b] text-[16px] sm:text-[18px] lg:text-[25px] tracking-[-0.625px] text-center leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
+              <p className="font-['Inter'] font-light text-[#091f5b] text-[16px] sm:text-[18px] lg:text-[20px] tracking-[-0.625px] text-center leading-relaxed">
+                This international-based community service program is conducted by university students as part of an academic initiative aimed at cognitive enhancement and human resource development. Designed as a platform for cultural assimilation between Korean and Indonesian culture, the program promotes mutual understanding through meaningful cross-cultural engagement.
+
+                In collaboration with 2 other universities, Seoul National University and National University students actively, the team contribute knowledge, skills, and perspectives to address community needs while strengthening global academic partnerships. This cooperation not only enriches participants intellectually but also enhances the program’s impact by fostering globally competent human resources with an international outlook.  
               </p>
             </div>
           </div>
@@ -191,15 +375,53 @@ export function KKNHomepage() {
         {/* PROGRAM */}
 <section className="mt-16 lg:mt-36">
   <SectionTitlePill gradient="left">OUR PROGRAM</SectionTitlePill>
-  <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-10 justify-items-center">
-    {/* Row 1: 3 cards -> each takes 2/6 */}
-    <ProgramCard title="BASIC KOREAN" emoji="📚" className="lg:col-span-2" />
-    <ProgramCard title="EPS TOPIK" emoji="✍️" className="lg:col-span-2" />
-    <ProgramCard title="KOREAN FOR TOURISM" emoji="✈️" className="lg:col-span-2" />
+  <div className="mt-10 space-y-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      <ProgramCard
+        title="BASIC KOREAN"
+        imageSrc="/ourProgramAssets/image 1.png"
+        description="Learn Hangul and everyday beginner conversations."
+        mascotSrc="/assets/pinkoBasicKorean.png"
+        mascotClassName="top-1/2 -translate-y-1/2 -left-10 w-32 h-auto"
+      />
+      <ProgramCard
+        title="EPS TOPIK"
+        imageSrc="/ourProgramAssets/image 2.png"
+        description="Focused EPS-TOPIK exam prep with targeted practice."
+        mascotSrc="/assets/pinkoEPS.png"
+        mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-40 h-auto rotate-12"
+      />
+      <ProgramCard
+        title="KOREAN FOR TOURISM"
+        imageSrc="/ourProgramAssets/image 3.png"
+        description="Practical Korean for travel and tourism services."
+        titleClassName="w-[300px]"
+        titleTextClassName="lg:text-[22px]"
+        mascotSrc="/assets/pinkoKoreanForTourism.png"
+        mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-40 h-auto rotate-12"
+      />
+    </div>
 
-    {/* Row 2: 2 cards -> each takes 3/6 (centered & symmetric) */}
-    <ProgramCard title="KOREAN FOR BUSINESS" emoji="💼" className="lg:col-span-3" />
-    <ProgramCard title="DIGITAL BUSINESS" emoji="💻" className="lg:col-span-3" />
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-y-6 lg:mx-32 lg:pt-4 justify-items-center">
+      <ProgramCard
+        title="KOREAN FOR BUSINESS"
+        imageSrc="/ourProgramAssets/image 4.png"
+        description="Professional Korean for workplace and business communication."
+        titleClassName="w-[300px]"
+        titleTextClassName="lg:text-[22px]"
+        mascotSrc="/assets/pinkoKoreanForBusiness.png"
+        mascotClassName="top-1/2 -translate-y-1/2 -left-10 w-32 h-auto"
+      />
+      <ProgramCard
+        title="DIGITAL BUSINESS"
+        imageSrc="/ourProgramAssets/image 5.png"
+        description="Build and grow a business through digital marketing strategies."
+        titleClassName="w-[250px]"
+        titleTextClassName="lg:text-[22px]"
+        mascotSrc="/assets/pinkoDigital Business.png"
+        mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-40 h-auto rotate-12"
+      />
+    </div>
   </div>
 </section>
 
@@ -209,12 +431,25 @@ export function KKNHomepage() {
           <SectionTitlePill gradient="left">TOTAL PARTICIPANT</SectionTitlePill>
 
           <div className="mt-10 flex justify-center">
-            <div className="bg-white/30 backdrop-blur-xl rounded-[3rem] p-10 lg:p-16 shadow-2xl w-full max-w-[894px]">
+            <div className="relative bg-[#D0E4FF] rounded-[3rem] p-10 lg:p-16 shadow-2xl w-full max-w-[720px]">
+              <img
+                src="/assets/pinkoBasicKorean.png"
+                alt=""
+                className="absolute -top-6 -right-6 w-24 h-24 lg:w-38 lg:h-38 object-contain pointer-events-none"
+                loading="lazy"
+              />
+              <img
+                src="/assets/pinkoEPS.png"
+                alt=""
+                className="absolute -bottom-6 -left-6 w-24 h-24 lg:w-38 lg:h-38 object-contain pointer-events-none"
+                loading="lazy"
+              />
               <p className="text-[56px] sm:text-[64px] lg:text-[80px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#091F5B] to-[#6F96D1] text-center">
-                500+
+                170+
               </p>
+              <p className="text-[16px] sm:text-[24px] lg:text-[40px] font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#091F5B] to-[#6F96D1] text-center">participants</p>
               <p className="text-[#091F5B] text-[16px] sm:text-[18px] lg:text-2xl font-semibold mt-4 text-center">
-                Students from around the world
+                Our team is committed on ensuring all participant get all the things they need
               </p>
             </div>
           </div>

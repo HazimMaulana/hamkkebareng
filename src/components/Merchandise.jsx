@@ -6,60 +6,186 @@ import { ShoppingCart } from "lucide-react";
 export function Merchandise({ onProductClick }) {
   const products = [
     {
-      name: "Team T-Shirt",
-      price: "$25",
-      image:
-        "https://images.unsplash.com/photo-1503342394128-c104d54dba01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0c2hpcnQlMjBtZXJjaGFuZGlzZSUyMGFwcGFyZWx8ZW58MXx8fHwxNzY3Njk2MjMzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "Comfortable cotton tee with our team logo",
-      badge: "Popular",
-      badgeColor: "from-pink-400 to-orange-400",
-      rating: 4.8,
-      reviews: 124,
-      features: ["100% Cotton", "Unisex", "Durable Print"],
-      sizes: ["S", "M", "L", "XL"],
-      colors: [{ name: "Navy", hex: "#091F5B" }, { name: "Blue", hex: "#6F96D1" }]
-    },
-    {
-      name: "Team Hoodie",
-      price: "$45",
-      image:
-        "https://images.unsplash.com/photo-1655183003950-3b803a84202d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxob29kaWUlMjBzd2VhdHNoaXJ0JTIwY2xvdGhpbmd8ZW58MXx8fHwxNzY3Njk2MjMzfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "Cozy hoodie perfect for chilly volunteer days",
-      badge: "New",
+      name: "Hamkke Bareng Official T-Shirt",
+      price: "Rp. 85.000",
+      image: "/products/shirt/Group 15.png",
+      description: "Premium group edition shirt.",
+      badge: "Shirt",
       badgeColor: "from-[#091F5B] to-[#6F96D1]",
       rating: 4.9,
-      reviews: 89,
-      features: ["Fleece Lined", "Kangaroo Pocket", "Warm"],
-      sizes: ["M", "L", "XL"],
-      colors: [{ name: "Navy", hex: "#091F5B" }]
+      reviews: 31,
+      features: ["Soft fabric", "Unisex fit", "Premium print"],
+      sizes: ["S", "M", "L", "XL"],
+      colors: [{ name: "White", hex: "#FFFFFF" }]
     },
     {
-      name: "Eco Tote Bag",
-      price: "$15",
-      image:
-        "https://images.unsplash.com/photo-1759165440307-1199382bc149?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0b3RlJTIwYmFnJTIwbWVyY2hhbmRpc2V8ZW58MXx8fHwxNzY3NjM4NDkyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "Reusable tote made from sustainable materials",
-      badge: "Eco",
-      badgeColor: "from-green-400 to-emerald-500",
+      name: "Totebag - Hamkke Bareng",
+      price: "Rp. 55.000",
+      image: "/products/Totebag/Group 2.png",
+      description: "Everyday totebag with official design.",
+      badge: "Totebag",
+      badgeColor: "from-emerald-400 to-green-500",
       rating: 4.7,
-      reviews: 215,
-      features: ["Organic Canvas", "Reinforced Hands", "Large Capacity"],
+      reviews: 12,
+      features: ["Durable canvas", "Roomy interior", "Sturdy straps"],
       sizes: ["One Size"],
       colors: [{ name: "Natural", hex: "#F5F5DC" }]
     },
     {
-      name: "Water Bottle",
-      price: "$20",
-      image:
-        "https://images.unsplash.com/photo-1683533893978-70a5a6f613e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3YXRlciUyMGJvdHRsZSUyMHByb2R1Y3R8ZW58MXx8fHwxNzY3Njg0MzAwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      description: "Insulated water bottle to stay hydrated",
-      badge: "Hot",
-      badgeColor: "from-red-400 to-pink-500",
+      name: "Mug - Hamkke Bareng",
+      price: "Rp. 30.000",
+      image: "/products/MUG/HB1 MUG.png",
+      description: "Ceramic mug with HB1 artwork.",
+      badge: "Mug",
+      badgeColor: "from-amber-400 to-orange-500",
+      rating: 4.8,
+      reviews: 9,
+      features: ["Ceramic", "Glossy finish", "Easy grip"],
+      sizes: ["One Size"],
+      colors: [{ name: "White", hex: "#FFFFFF" }]
+    },
+    {
+      name: "Keychain - hamkke bareng 1",
+      price: "Rp. 13.000",
+      image: "/products/Keychain/HB1 KEYCHAIN.png",
+      description: "Compact keychain with HB1 design.",
+      badge: "Keychain",
+      badgeColor: "from-sky-400 to-blue-500",
       rating: 4.6,
-      reviews: 56,
-      features: ["Stainless Steel", "24h Cold", "12h Hot"],
-      sizes: ["500ml"],
-      colors: [{ name: "Silver", hex: "#C0C0C0" }]
+      reviews: 14,
+      features: ["Durable acrylic", "Metal ring", "Lightweight"],
+      sizes: ["One Size"],
+      colors: []
+    },
+    {
+      name: "Keychain - hamkke bareng 2",
+      price: "Rp. 13.000",
+      image: "/products/Keychain/HB2 KEYCHAIN.png",
+      description: "Compact keychain with HB2 design.",
+      badge: "Keychain",
+      badgeColor: "from-sky-400 to-blue-500",
+      rating: 4.6,
+      reviews: 11,
+      features: ["Durable acrylic", "Metal ring", "Lightweight"],
+      sizes: ["One Size"],
+      colors: []
+    },
+    {
+      name: "Keychain - Pinko",
+      price: "Rp. 13.000",
+      image: "/products/Keychain/PINKO KEYCHAIN.png",
+      description: "Compact keychain with Pinko design.",
+      badge: "Keychain",
+      badgeColor: "from-sky-400 to-blue-500",
+      rating: 4.7,
+      reviews: 10,
+      features: ["Durable acrylic", "Metal ring", "Lightweight"],
+      sizes: ["One Size"],
+      colors: []
+    },
+    {
+      name: "Sticker Pack - Basic Korean",
+      price: "Rp. 7000",
+      image: "/products/Sticker/BasicKoreanStickerPack.jpeg",
+      description: "Sticker pack set with basic Korean theme.",
+      badge: "Sticker",
+      badgeColor: "from-pink-400 to-rose-500",
+      rating: 4.8,
+      reviews: 27,
+      features: ["Vinyl finish", "Water resistant", "Easy peel"],
+      sizes: ["Pack"],
+      colors: []
+    },
+    {
+      name: "Sticker Pack - Digital Business",
+      price: "Rp. 7000",
+      image: "/products/Sticker/DigitalBusinessStickerPack.jpeg",
+      description: "Sticker pack set with digital business theme.",
+      badge: "Sticker",
+      badgeColor: "from-pink-400 to-rose-500",
+      rating: 4.8,
+      reviews: 19,
+      features: ["Vinyl finish", "Water resistant", "Easy peel"],
+      sizes: ["Pack"],
+      colors: []
+    },
+    {
+      name: "Sticker Pack - EPS Topic",
+      price: "Rp. 7000",
+      image: "/products/Sticker/EPSTOPICStickerPack.jpeg",
+      description: "Sticker pack set with EPS topic theme.",
+      badge: "Sticker",
+      badgeColor: "from-pink-400 to-rose-500",
+      rating: 4.7,
+      reviews: 16,
+      features: ["Vinyl finish", "Water resistant", "Easy peel"],
+      sizes: ["Pack"],
+      colors: []
+    },
+    {
+      name: "Sticker Pack - Korean for Business",
+      price: "Rp. 7000",
+      image: "/products/Sticker/KoreanForBusinessStickerPack.jpeg.jpeg",
+      description: "Sticker pack set with Korean for business theme.",
+      badge: "Sticker",
+      badgeColor: "from-pink-400 to-rose-500",
+      rating: 4.7,
+      reviews: 13,
+      features: ["Vinyl finish", "Water resistant", "Easy peel"],
+      sizes: ["Pack"],
+      colors: []
+    },
+    {
+      name: "Sticker Pack - Korean for Tourism",
+      price: "Rp. 7000",
+      image: "/products/Sticker/KoreanForTourismStickerPack.jpeg",
+      description: "Sticker pack set with Korean for tourism theme.",
+      badge: "Sticker",
+      badgeColor: "from-pink-400 to-rose-500",
+      rating: 4.8,
+      reviews: 15,
+      features: ["Vinyl finish", "Water resistant", "Easy peel"],
+      sizes: ["Pack"],
+      colors: []
+    },
+    {
+      name: "Sticker Pack - Snowies",
+      price: "Rp. 7000",
+      image: "/products/Sticker/SnowiesStickerPack.jpeg",
+      description: "Sticker pack set with Snowies theme.",
+      badge: "Sticker",
+      badgeColor: "from-pink-400 to-rose-500",
+      rating: 4.9,
+      reviews: 21,
+      features: ["Vinyl finish", "Water resistant", "Easy peel"],
+      sizes: ["Pack"],
+      colors: []
+    },
+    {
+      name: "Hamkke Bareng Tote Bag Bundle",
+      price: "Rp. 79.000",
+      image: "/products/Bundling/Group 16.png",
+      description: "Bundle set with exclusive items.",
+      badge: "Bundle",
+      badgeColor: "from-indigo-400 to-blue-500",
+      rating: 4.9,
+      reviews: 8,
+      features: ["Exclusive set", "Limited release", "Great value"],
+      sizes: ["Bundle"],
+      colors: []
+    },
+    {
+      name: "Hamkke Bareng T-Shirt Bundle",
+      price: "Rp. 99.000",
+      image: "/products/Bundling/Group 17.png",
+      description: "Bundle set with exclusive items.",
+      badge: "Bundle",
+      badgeColor: "from-indigo-400 to-blue-500",
+      rating: 4.8,
+      reviews: 6,
+      features: ["Exclusive set", "Limited release", "Great value"],
+      sizes: ["Bundle"],
+      colors: []
     },
   ];
 
@@ -67,22 +193,8 @@ export function Merchandise({ onProductClick }) {
     <section id="merchandise" className="w-full py-20 relative font-['Inter']">
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-5 py-3 bg-white/70 backdrop-blur-2xl rounded-full text-sm mb-6 border border-white/60 shadow-xl">
-            <ShoppingCart className="h-4 w-4 text-[#091F5B]" />
-            <span className="font-semibold text-[#091F5B]">Support Our Cause</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 bg-gradient-to-r from-[#091F5B] to-[#6F96D1] bg-clip-text text-transparent">
-            Our Merchandise 🛍️
-          </h2>
-          <p className="text-xl text-[#091F5B]/80 leading-relaxed">
-            Show your support for our cause! All proceeds from merchandise sales
-            go directly toward funding our volunteer projects and community
-            initiatives. 💙
-          </p>
-        </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-12">
           {products.map((product, index) => (
             <Card
               key={index}
@@ -93,7 +205,7 @@ export function Merchandise({ onProductClick }) {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500"
                 />
                 {/* Badge with glassmorphism */}
                 <div className={`absolute top-4 right-4 px-4 py-2 rounded-full text-xs font-bold text-white bg-gradient-to-r ${product.badgeColor} shadow-xl backdrop-blur-xl`}>
@@ -110,14 +222,14 @@ export function Merchandise({ onProductClick }) {
                 </div>
               </div>
 
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-lg text-[#091F5B] group-hover:text-[#6F96D1] transition-colors">
+              <div className="p-4 sm:p-6">
+                <div className="mb-2">
+                  <h3 className="font-bold text-base sm:text-lg text-[#091F5B] group-hover:text-[#6F96D1] transition-colors">
                     {product.name}
                   </h3>
-                  <span className="font-bold text-lg text-[#091F5B]">{product.price}</span>
+                  <span className="font-bold text-base sm:text-lg text-[#091F5B]">{product.price}</span>
                 </div>
-                <p className="text-[#091F5B]/70 text-sm line-clamp-2">
+                <p className="text-[#091F5B]/70 text-xs sm:text-sm line-clamp-2">
                   {product.description}
                 </p>
               </div>

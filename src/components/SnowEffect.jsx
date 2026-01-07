@@ -10,7 +10,7 @@ export function SnowEffect() {
       left: Math.random() * 100,
       animationDuration: Math.random() * 3 + 2,
       animationDelay: Math.random() * 5,
-      fontSize: Math.random() * 10 + 10,
+      fontSize: Math.random() * 5 + 4,
       opacity: Math.random() * 0.6 + 0.4,
     }));
     setSnowflakes(flakes);
@@ -21,17 +21,16 @@ export function SnowEffect() {
       {snowflakes.map((flake) => (
         <div
           key={flake.id}
-          className="absolute text-white animate-fall"
+          className="absolute bg-white rounded-full animate-fall"
           style={{
             left: `${flake.left}%`,
             animationDuration: `${flake.animationDuration}s`,
             animationDelay: `${flake.animationDelay}s`,
-            fontSize: `${flake.fontSize}px`,
+            width: `${flake.fontSize}px`,
+            height: `${flake.fontSize}px`,
             opacity: flake.opacity,
           }}
-        >
-          ❅
-        </div>
+        />
       ))}
       <style jsx>{`
         @keyframes fall {

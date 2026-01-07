@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowLeft, ShoppingCart, Star, Minus, Plus, Check, Truck, RefreshCw, Shield } from "lucide-react";
+import { addToCart } from "@/lib/cart";
+
+const STICKER_OPTIONS = [
+  "Basic Korean Sticker Pack",
+  "Digital Business Sticker Pack",
+  "EPS Topic Sticker Pack",
+  "Korean For Business Sticker Pack",
+  "Korean For Tourism Sticker Pack",
+  "Snowies Sticker Pack",
+];
+
+const KEYCHAIN_OPTIONS = ["HB1 Keychain", "HB2 Keychain", "Pinko Keychain"];
+
 
 export function ProductDetails({ onBack, product }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[0] || "M");
   const [selectedColor, setSelectedColor] = useState(product?.colors?.[0]?.name || "Blue");
   const [isLiked, setIsLiked] = useState(false);
+  const [added, setAdded] = useState(false);
+  const addedTimeoutRef = useRef(null);
+  const [bundleStickerOne, setBundleStickerOne] = useState(STICKER_OPTIONS[0]);
+  const [bundleStickerTwo, setBundleStickerTwo] = useState(STICKER_OPTIONS[1]);
+  const [bundleKeychain, setBundleKeychain] = useState(KEYCHAIN_OPTIONS[0]);
 
   // Fallback defaults if product props missing
   const {
@@ -21,6 +41,7 @@ export function ProductDetails({ onBack, product }) {
     colors = [],
     image
   } = product || {};
+  const isBundle = (product?.badge || "").toLowerCase() === "bundle";
 
   const reviewsList = [
       {
@@ -40,6 +61,52 @@ export function ProductDetails({ onBack, product }) {
   const incrementQuantity = () => setQuantity((q) => q + 1);
   const decrementQuantity = () => setQuantity((q) => (q > 1 ? q - 1 : 1));
 
+  useEffect(() => {
+    return () => {
+      if (addedTimeoutRef.current) {
+        clearTimeout(addedTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isBundle) {
+      setBundleStickerOne(STICKER_OPTIONS[0]);
+      setBundleStickerTwo(STICKER_OPTIONS[1] ?? STICKER_OPTIONS[0]);
+      setBundleKeychain(KEYCHAIN_OPTIONS[0]);
+    }
+  }, [isBundle, product?.name]);
+
+  const handleAddToCart = () => {
+    const sizeValue = sizes.length > 0 ? selectedSize : null;
+    const colorValue = colors.length > 0 ? selectedColor : null;
+    const key = [name, sizeValue, colorValue].filter(Boolean).join("|");
+    const options = [];
+
+    if (isBundle) {
+      options.push(`Sticker 1: ${bundleStickerOne}`);
+      options.push(`Sticker 2: ${bundleStickerTwo}`);
+      options.push(`Keychain: ${bundleKeychain}`);
+    }
+
+    addToCart({
+      key: isBundle ? `${key}|${bundleStickerOne}|${bundleStickerTwo}|${bundleKeychain}` : key,
+      name,
+      price,
+      image,
+      quantity,
+      size: sizeValue,
+      color: colorValue,
+      options,
+    });
+
+    setAdded(true);
+    if (addedTimeoutRef.current) {
+      clearTimeout(addedTimeoutRef.current);
+    }
+    addedTimeoutRef.current = setTimeout(() => setAdded(false), 1500);
+  };
+
   return (
     <div className="w-full min-h-screen py-32 px-4 font-['Inter']">
       <div className="container mx-auto max-w-6xl">
@@ -52,23 +119,12 @@ export function ProductDetails({ onBack, product }) {
           Back to Shop
         </button>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-20">
-          {/* Product Image */}
-          <div className="relative group">
-             <div className="absolute inset-4 bg-gradient-to-tr from-[#091F5B]/20 to-[#6F96D1]/20 rounded-[2.5rem] transform rotate-3 scale-95 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl" />
-             <div className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-white/50 backdrop-blur-sm border-2 border-white/50 shadow-2xl">
-                <img
-                    src={image}
-                    alt={name}
-                    className="w-full h-full object-cover"
-                />
-             </div>
-          </div>
-
-          {/* Product Info */}
-          <div className="space-y-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
+        <div>
+              <div className="flex flex-col items-center gap-2 mb-4">
+                  <h1 className="text-4xl lg:text-5xl font-extrabold text-[#091F5B] mb-4 bg-clip-text">
+                    {name}
+                  </h1>
+                  <p className="text-3xl font-bold text-[#6F96D1]">{price}</p>
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className={`h-5 w-5 ${i < Math.floor(rating) ? "fill-current" : "text-gray-300"}`} />
@@ -78,18 +134,90 @@ export function ProductDetails({ onBack, product }) {
                   {rating} ({reviews} reviews)
                 </span>
               </div>
-              <h1 className="text-4xl lg:text-5xl font-extrabold text-[#091F5B] mb-4 bg-clip-text">
-                {name}
-              </h1>
-              <p className="text-3xl font-bold text-[#6F96D1]">{price}</p>
             </div>
 
-            <p className="text-[#091F5B]/80 text-lg leading-relaxed">
+        <div className="grid lg:grid-cols-2 gap-12 mb-20 ">
+          {/* Product Image */}
+          <div className="relative group">
+             <div className="absolute inset-4 bg-gradient-to-tr from-[#091F5B]/20 to-[#6F96D1]/20 rounded-[2.5rem] transform rotate-3 scale-95 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl" />
+             <div className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-white/50 backdrop-blur-sm border-2 border-white/50 shadow-2xl">
+                <img
+                    src={image}
+                    alt={name}
+                    className="w-full h-full object-contain p-8"
+                />
+             </div>
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-8 flex flex-col">
+            
+
+            {/* <p className="text-[#091F5B]/80 text-lg leading-relaxed">
               {description}
-            </p>
+            </p> */}
 
             {/* Selectors */}
             <div className="space-y-6 p-6 bg-white/40 backdrop-blur-md rounded-3xl border border-white/40">
+                {isBundle && (
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-bold text-[#091F5B] mb-3">Sticker 1</label>
+                      <div className="flex flex-wrap gap-3">
+                        {STICKER_OPTIONS.map((option) => (
+                          <button
+                            key={option}
+                            onClick={() => setBundleStickerOne(option)}
+                            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 ${
+                              bundleStickerOne === option
+                                ? "bg-[#091F5B] text-white shadow-lg scale-[1.02]"
+                                : "bg-white/60 text-[#091F5B] hover:bg-white/80"
+                            }`}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-[#091F5B] mb-3">Sticker 2</label>
+                      <div className="flex flex-wrap gap-3">
+                        {STICKER_OPTIONS.map((option) => (
+                          <button
+                            key={option}
+                            onClick={() => setBundleStickerTwo(option)}
+                            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 ${
+                              bundleStickerTwo === option
+                                ? "bg-[#091F5B] text-white shadow-lg scale-[1.02]"
+                                : "bg-white/60 text-[#091F5B] hover:bg-white/80"
+                            }`}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-[#091F5B] mb-3">Keychain</label>
+                      <div className="flex flex-wrap gap-3">
+                        {KEYCHAIN_OPTIONS.map((option) => (
+                          <button
+                            key={option}
+                            onClick={() => setBundleKeychain(option)}
+                            className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 ${
+                              bundleKeychain === option
+                                ? "bg-[#091F5B] text-white shadow-lg scale-[1.02]"
+                                : "bg-white/60 text-[#091F5B] hover:bg-white/80"
+                            }`}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Colors */}
                 {colors.length > 0 && (
                     <div>
@@ -157,31 +285,15 @@ export function ProductDetails({ onBack, product }) {
 
             {/* Actions */}
             <div className="flex gap-4">
-                <Button className="flex-1 h-14 bg-[#091F5B] hover:bg-[#091F5B]/90 text-white rounded-2xl text-lg font-bold shadow-xl shadow-[#091F5B]/20 hover:-translate-y-1 transition-all duration-300">
+                <Button
+                  onClick={handleAddToCart}
+                  className="flex-1 h-14 bg-[#091F5B] hover:bg-[#091F5B]/90 text-white rounded-2xl text-lg font-bold shadow-xl shadow-[#091F5B]/20 hover:-translate-y-1 transition-all duration-300"
+                >
                     <ShoppingCart className="mr-2 h-5 w-5" />
-                    Add to Cart
+                    {added ? "Added" : "Add to Cart"}
                 </Button>
             </div>
             
-            {/* Features */}
-             <div className="grid grid-cols-2 gap-4 text-[#091F5B]/80 text-sm">
-                <div className="flex items-center gap-2">
-                  <Truck className="h-4 w-4 text-[#6F96D1]" />
-                  <span>Free shipping over $50</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Shield className="h-4 w-4 text-[#6F96D1]" />
-                  <span>Secure checkout</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RefreshCw className="h-4 w-4 text-[#6F96D1]" />
-                  <span>30-day returns</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-[#6F96D1]" />
-                  <span>Authentic merchandise</span>
-                </div>
-             </div>
           </div>
         </div>
         
@@ -230,4 +342,3 @@ export function ProductDetails({ onBack, product }) {
     </div>
   );
 }
-
