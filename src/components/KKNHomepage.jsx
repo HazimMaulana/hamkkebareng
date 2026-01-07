@@ -364,9 +364,7 @@ export function KKNHomepage() {
           <div className="mt-8 flex justify-center">
             <div className="bg-[#d0e4ff] rounded-[25px] shadow-[0px_0px_15px_5px_rgba(9,31,91,0.05)] w-full max-w-[894px] p-8 lg:p-12">
               <p className="font-['Inter'] font-light text-[#091f5b] text-[16px] sm:text-[18px] lg:text-[20px] tracking-[-0.625px] text-center leading-relaxed">
-                This international-based community service program is conducted by university students as part of an academic initiative aimed at cognitive enhancement and human resource development. Designed as a platform for cultural assimilation between Korean and Indonesian culture, the program promotes mutual understanding through meaningful cross-cultural engagement.
-
-                In collaboration with 2 other universities, Seoul National University and National University students actively, the team contribute knowledge, skills, and perspectives to address community needs while strengthening global academic partnerships. This cooperation not only enriches participants intellectually but also enhances the program’s impact by fostering globally competent human resources with an international outlook.  
+                This international-based community service program is organized by universities students as part of an unique way to achive academic initiative and human resource development. Designed as a platform for cultural assimilation between Korean and Indonesian culture, the program promotes mutual understanding through meaningful cross-cultural engagement. In collaboration with 2 other universities, Seoul National University and National University students, the team contribute knowledge, skills, and perspectives to address community needs while strengthening global academic partnerships. This cooperation not only enriches participants intellectually but also enhances the program’s impact by fostering globally competent human resources with an international outlook.  
               </p>
             </div>
           </div>

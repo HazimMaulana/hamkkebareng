@@ -9,6 +9,9 @@ const inter = Inter({
 export const metadata = {
   title: "Hamkke Bareng",
   description: "KKN International Winter Batch 2025",
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
