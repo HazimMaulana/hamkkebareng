@@ -383,14 +383,14 @@ export function KKNHomepage() {
         imageSrc="/ourProgramAssets/image 1.png"
         description="Learn Hangul and everyday beginner conversations."
         mascotSrc="/assets/pinkoBasicKorean.png"
-        mascotClassName="top-1/2 -translate-y-1/2 -left-10 w-32 h-auto"
+        mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-32 h-auto rotate-12 "
       />
       <ProgramCard
         title="EPS TOPIK"
-        imageSrc="/ourProgramAssets/image 4.png"
+        imageSrc="/Classes Documentation/EPS TOPIC/a39b9bb8-821b-44bf-9c2c-2046c2256864.JPG"
         description="Focused EPS-TOPIK exam prep with targeted practice."
         mascotSrc="/assets/pinkoEPS.png"
-        mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-40 h-auto rotate-12"
+        mascotClassName="top-1/2 -translate-y-1/2 -left-10 w-38 h-auto"
       />
       <ProgramCard
         title="KOREAN FOR TOURISM"

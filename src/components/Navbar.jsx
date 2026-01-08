@@ -64,7 +64,7 @@ export function Navbar() {
             {/* <a href="/contact" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
               Contact
             </a> */}
-            <a href="/our-events" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+            <a href="/our-events" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
               Our Events
             </a>
             <a href="/store" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">

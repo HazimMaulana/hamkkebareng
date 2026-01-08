@@ -136,7 +136,7 @@ export default function ContactPage() {
             <p className="text-white text-center pt-6 px-2">Join us for the International KKN (Community Service Learning) Winter Batch 2025. This season, we are transcending geographical boundaries to foster sustainable development and cultural exchange.</p>
         </div>
 
-        <div className="flex flex-col space-y-16  lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center pt-10 px-4 items-center align-middle">
+        <div className="flex flex-col space-y-16  lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center pt-10  px-4 items-center lg:items-start">
         <div className="flex flex-col w-full justify-center max-w-[570px]">
           <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
