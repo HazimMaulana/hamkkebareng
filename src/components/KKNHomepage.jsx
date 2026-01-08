@@ -32,7 +32,7 @@ const SNOW_POSITIONS = [
   { left: 120, bottom: 180, size: 120, opacity: 0.55, blur: false },
   { left: 420, bottom: 60, size: 160, opacity: 0.4, blur: true },
   { left: 820, bottom: 120, size: 140, opacity: 0.5, blur: false },
-  { left: 1080, bottom: 40, size: 180, opacity: 0.35, blur: true },
+  { left: 1080, bottom: 40, size: 180, opacity: 0.9, blur: true },
   { left: 1260, bottom: 160, size: 110, opacity: 0.6, blur: false },
 ];
 
@@ -212,7 +212,7 @@ export function KKNHomepage() {
             key={`snow-bottom-${i}`}
             alt=""
             src="/assets/snow.png"
-            className={`absolute ${pos.blur ? "blur-sm" : ""}`}
+            className={`absolute ${pos.blur ? "blur-sm" : ""} ${i === 3 ? "z-10" : ""}`}
             style={{
               left: pos.left,
               bottom: pos.bottom,
@@ -316,7 +316,7 @@ export function KKNHomepage() {
       {/* MAIN CONTENT (Natural Flow) */}
       <main className="relative w-full max-w-[1300px] mx-auto px-6 lg:px-16 pb-24">
         {/* HERO (flow + responsive grid) */}
-        <section className="pt-16 lg:pt-28">
+        <section className="pt-24 lg:pt-28">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left */}
             <div className="text-center lg:text-left">
@@ -405,7 +405,7 @@ export function KKNHomepage() {
         title="KOREAN FOR BUSINESS"
         imageSrc="/ourProgramAssets/kfb.png"
         description="Professional Korean for workplace and business communication."
-        titleClassName="w-[300px]"
+        titleClassName="w-[310px]"
         titleTextClassName="lg:text-[22px]"
         mascotSrc="/assets/pinkoKoreanForBusiness.png"
         mascotClassName="top-1/2 -translate-y-1/2 -left-10 w-32 h-auto"

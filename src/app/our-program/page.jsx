@@ -48,7 +48,7 @@ const PROGRAMS = [
   },
   {
     title: "EPS TOPIK",
-    imageSrc: "/ourProgramAssets/image 4.png",
+    imageSrc: "/ourProgramAssets/image 3.png",
     description: "Focused EPS-TOPIK exam prep with targeted practice.",
     mascotSrc: "/assets/pinkoEPS.png",
     mascotClassName: "top-1/2 -translate-y-1/2 -right-12 w-40 h-auto rotate-12",
@@ -68,7 +68,7 @@ const PROGRAMS = [
     title: "KOREAN FOR BUSINESS",
     imageSrc: "/ourProgramAssets/kfb.png",
     description: "Professional Korean for workplace and business communication.",
-    titleClassName: "w-[300px]",
+    titleClassName: "w-[310px]",
     titleTextClassName: "lg:text-[22px]",
     mascotSrc: "/assets/pinkoKoreanForBusiness.png",
     mascotClassName: "top-1/2 -translate-y-1/2 -left-10 w-32 h-auto",
@@ -128,8 +128,8 @@ function ProgramCard({
         </p>
       </div>
 
-      <div className="bg-[#d0e4ff] w-[310px] h-[270px] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] px-4 pb-4 pt-9 cursor-pointer hover:scale-105 transition-transform flex flex-col items-center">
-        <div className="w-[273px] h-[165px] rounded-[14px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden">
+      <div className="bg-[#d0e4ff] w-[340px] h-[270px] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] px-4 pb-4 pt-9 cursor-pointer hover:scale-105 transition-transform flex flex-col items-center">
+        <div className="w-[303px] h-[165px] rounded-[14px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden">
           <img src={imageSrc} alt="" className="h-full w-full object-cover" loading="lazy" />
         </div>
         {description && (
@@ -143,7 +143,7 @@ function ProgramCard({
         <img
           src={mascotSrc}
           alt="Program Mascot"
-          className={`absolute pointer-events-none z-20 hover:scale-110 transition-transform duration-300 ${mascotClassName}`}
+          className={`absolute z-20 hover:scale-110 hover:-translate-y-2 transition-all duration-300 ease-out cursor-pointer ${mascotClassName}`}
           loading="lazy"
         />
       )}
@@ -153,7 +153,10 @@ function ProgramCard({
   return (
     <div className={`relative flex flex-col items-center group ${className}`}>
       {href ? (
-        <Link href={href} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 rounded-[26px]">
+        <Link
+          href={href}
+          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 rounded-[26px] flex flex-col items-center"
+        >
           {content}
         </Link>
       ) : (

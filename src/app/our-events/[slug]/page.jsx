@@ -59,6 +59,13 @@ export default function EventRegistrationPage() {
         .join(" ")
     : "Event Registration";
 
+  let waLink = "";
+  if (slug === "aging-and-health-promotion") {
+    waLink = "https://chat.whatsapp.com/D3xOPtfdl5p62yowiEYku0";
+  } else if (slug === "development-economics-and-impact-evaluation") {
+    waLink = "https://chat.whatsapp.com/HTetLfegU8tBIJ5OeQ6wX7";
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -201,12 +208,24 @@ export default function EventRegistrationPage() {
                     </svg>
                   </div>
                   <h3 className="text-xl font-bold text-[#091f5b] text-center">
-                    Registration Successful!
+                    Thank you for joining!
                   </h3>
                   <p className="text-center text-gray-600">
-                    Thank you for registering for {eventName}. We will contact
-                    you shortly.
+                    please join our official Whatsapp group through link below for
+                    further information 🤩!
                   </p>
+                  {waLink && (
+                    <a
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full"
+                    >
+                      <Button className="w-full bg-[#091f5b] hover:bg-[#31467e] text-white text-lg py-6 rounded-xl font-bold shadow-md">
+                        Join WhatsApp Group
+                      </Button>
+                    </a>
+                  )}
                   <Button
                     onClick={() => setSuccess(false)}
                     variant="outline"
@@ -244,7 +263,7 @@ export default function EventRegistrationPage() {
                       id="origin"
                       name="origin"
                       required
-                      placeholder="Institution or City"
+                      placeholder="University, School or general location"
                       className="bg-white/50 border-white/60 focus:border-[#091f5b] rounded-xl"
                     />
                   </div>

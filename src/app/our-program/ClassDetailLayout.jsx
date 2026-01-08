@@ -33,7 +33,7 @@ const CIRCLE_POSITIONS = [
 const SNOW_POSITIONS = [
   { left: 120, top: 180, size: 120, opacity: 0.55, blur: false },
   { left: 420, top: 60, size: 160, opacity: 0.4, blur: true },
-  { left: 820, top: 120, size: 140, opacity: 0.5, blur: false },
+  { left: 1220, top: 720, size: 140, opacity: 0.5, blur: false },
   { left: 1080, top: 40, size: 180, opacity: 0.35, blur: true },
   { left: 1260, top: 160, size: 110, opacity: 0.6, blur: false },
 ];
@@ -46,7 +46,7 @@ export default function ClassDetailLayout({ data, backHref = "/our-program" }) {
   }
 
   return (
-    <div className="relative min-h-screen w-full bg-gradient-to-b from-[#D0E4FF] to-[#6F96D1] flex flex-col items-center overflow-x-hidden">
+    <div className="relative min-h-screen w-full bg-gradient-to-b pt-8 from-[#D0E4FF] to-[#6F96D1] flex flex-col items-center overflow-x-hidden">
       <SnowEffect />
 
       <div className="hidden lg:block pointer-events-none absolute inset-0 overflow-hidden z-0">
@@ -95,33 +95,51 @@ export default function ClassDetailLayout({ data, backHref = "/our-program" }) {
             Back to Our Program
           </Link>
 
+          <div className="flex flex-col items-center gap-4 mb-12 text-center">
+            <h1
+              className="font-['AGPX',sans-serif] text-white text-[48px] lg:text-[72px] leading-[1.05] tracking-[-2px]"
+              style={{
+                textShadow:
+                  "0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6)",
+              }}
+            >
+              {data.title}
+            </h1>
+            <p className="text-[#091F5B] text-lg lg:text-xl font-bold">
+              {data.level}
+            </p>
+
+            <div className="flex items-center gap-2 text-yellow-400 justify-center">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`h-5 w-5 ${
+                    i < Math.round(data.rating) ? "fill-current" : "text-gray-300"
+                  }`}
+                />
+              ))}
+              <span className="text-[#091F5B] font-semibold ml-2">
+                {data.rating} rating
+              </span>
+            </div>
+          </div>
+
           <div className="grid lg:grid-cols-2 gap-12 mb-16">
             <div className="relative">
               <div className="absolute inset-4 bg-gradient-to-tr from-[#091F5B]/20 to-[#6F96D1]/20 rounded-[2.5rem] transform rotate-3 scale-95 opacity-100 transition-all duration-500 blur-2xl" />
               <div className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-white/50 backdrop-blur-sm border-2 border-white/50 shadow-2xl">
-                <img src={data.image} alt={data.title} className="w-full h-full object-cover" />
+                <img
+                  src={data.image}
+                  alt={data.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
             <div className="space-y-6">
-              <div>
-                <h1
-                  className="font-['AGPX',sans-serif] text-white text-[48px] lg:text-[72px] leading-[1.05] tracking-[-2px]"
-                  style={{ textShadow: "0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6)" }}
-                >
-                  {data.title}
-                </h1>
-                <p className="text-[#091F5B] text-lg lg:text-xl mt-2">{data.level}</p>
-              </div>
-
-              <div className="flex items-center gap-2 text-yellow-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`h-5 w-5 ${i < Math.round(data.rating) ? "fill-current" : "text-gray-300"}`} />
-                ))}
-                <span className="text-[#091F5B] font-semibold ml-2">{data.rating} rating</span>
-              </div>
-
-              <p className="text-[#091F5B]/80 text-base lg:text-lg leading-relaxed">{data.summary}</p>
+              <p className="text-[#091F5B]/80 text-base lg:text-lg leading-relaxed">
+                {data.summary}
+              </p>
 
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="bg-white/50 rounded-2xl border border-white/50 p-4 flex items-center gap-3 text-[#091F5B]">
@@ -153,9 +171,7 @@ export default function ClassDetailLayout({ data, backHref = "/our-program" }) {
                 </div>
               </div>
 
-              <div className="bg-white/60 rounded-2xl border border-white/60 p-4 text-[#091F5B] font-bold text-lg">
-                {data.price}
-              </div>
+
 
               <ul className="grid sm:grid-cols-2 gap-3 text-[#091F5B]">
                 {data.highlights.map((item) => (
@@ -171,8 +187,19 @@ export default function ClassDetailLayout({ data, backHref = "/our-program" }) {
             <div className="lg:col-span-1 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40">
               <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Tutor Profile</h2>
               <div className="flex flex-col items-center text-center gap-4">
-                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl">
-                  <img src={data.tutor.image} alt={data.tutor.name} className="w-full h-full object-cover" />
+                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gradient-to-br from-[#D0E4FF] to-[#6F96D1] animate-pulse flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-16 h-16 text-white/70"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </div>
                 <div>
                   <p className="text-xl font-bold text-[#091F5B]">{data.tutor.name}</p>

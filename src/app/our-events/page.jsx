@@ -73,16 +73,14 @@ function EventsCard({
 
       <button
         type="button"
-        className="bg-[#d0e4ff] w-[550px] h-[295px] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)]   pt-4 cursor-pointer  flex flex-col items-center"
+        className="bg-[#d0e4ff] w-[550px] h-[295px] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer"
       >
-        <div className="w-[510px] h-[260px] rounded-[14px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden">
-          <img
-            src={imageSrc}
-            alt=""
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-        </div>
+        <img
+          src={imageSrc}
+          alt=""
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
       </button>
     </div>
   );
@@ -148,7 +146,7 @@ export default function ContactPage() {
           <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
             title="GENERAL LECTURE"
-            imageSrc="/ourProgramAssets/image 4.png"
+            imageSrc="/assets/health.png"
             titleClassName="w-[300px]"
             titleTextClassName="lg:text-[22px]"
             className="-mt-3"
@@ -161,7 +159,7 @@ export default function ContactPage() {
             </div>
             <div className="flex flex-col w-2/5 text-white">
               <h1 className=" text-3xl font-semibold">Event date:</h1>
-              <h1 className=" text-3xl font-bold">January 26th</h1>
+              <h1 className=" text-3xl font-bold">January 25th</h1>
               <p>Ruang Sidang Prof. Morisco</p>
               <p>Gedung A</p>
               <p>Fakultas Teknik</p>
@@ -184,7 +182,7 @@ export default function ContactPage() {
           <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
             title="GENERAL LECTURE"
-            imageSrc="/ourProgramAssets/image 4.png"
+            imageSrc="/assets/economics.png"
             titleClassName="w-[300px]"
             titleTextClassName="lg:text-[22px]"
             className="-mt-3"
@@ -197,7 +195,7 @@ export default function ContactPage() {
             </div>
             <div className="flex flex-col w-2/5 text-white">
               <h1 className=" text-3xl font-semibold">Event date:</h1>
-              <h1 className=" text-3xl font-bold">January 27th</h1>
+              <h1 className=" text-3xl font-bold">January 26th</h1>
               <p>Ruang Sidang Prof. Morisco</p>
               <p>Gedung A</p>
               <p>Fakultas Teknik</p>
