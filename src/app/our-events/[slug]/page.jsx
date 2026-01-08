@@ -185,7 +185,7 @@ export default function EventRegistrationPage() {
           <Card className="bg-white/70 backdrop-blur-2xl border-2 border-white/60 shadow-2xl rounded-3xl">
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold text-[#091f5b]">
-                Fill in your details
+                You're All Set! 🎉
               </CardTitle>
             </CardHeader>
             <CardContent>
