@@ -14,19 +14,19 @@ export function Navbar() {
         </a>
 
         <div className="ml-auto hidden lg:flex items-center gap-6">
-          <a href="/our-team" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+          <a href="/our-team" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             Our Team
           </a>
           <a href="/our-program" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
               Our Program
           </a>
-          <a href="/scube-center" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+          <a href="/scube-center" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             S-Cube Center
           </a>
-          <a href="/our-events" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+          <a href="/our-events" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             Our Events
           </a>
-          <a href="/store" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+          <a href="/store" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             Store
           </a>
           <a

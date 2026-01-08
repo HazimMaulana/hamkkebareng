@@ -73,7 +73,7 @@ function EventsCard({
 
       <button
         type="button"
-        className="bg-[#d0e4ff] w-[550px] h-[295px] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer"
+        className="bg-[#d0e4ff] w-full max-w-[550px] max-h-[295px] aspect-[550/295] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer"
       >
         <img
           src={imageSrc}
