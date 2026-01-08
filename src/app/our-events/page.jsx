@@ -71,17 +71,12 @@ function EventsCard({
         </p>
       </div>
 
-      <button
-        type="button"
-        className="bg-[#d0e4ff] w-full max-w-[550px] aspect-[550/295] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer"
-      >
-        <img
-          src={imageSrc}
-          alt=""
-          className="h-full w-full object-cover"
-          loading="lazy"
-        />
-      </button>
+      <img
+        src={imageSrc}
+        alt=""
+        className="w-full  object-cover rounded-4xl cursor-pointer"
+        loading="lazy"
+      />
     </div>
   );
 }
@@ -133,23 +128,23 @@ export default function ContactPage() {
         
         <div className="flex flex-col max-w-[700px] flex justify-center w-full pt-32">
             <h1
-                className="font-['AGPX',sans-serif] text-white text-[50px] lg:text-[85px] leading-[1.1] tracking-[-2.125px] text-center"
+                className="font-['AGPX',sans-serif] text-white text-[45px] lg:text-[85px] leading-[1.1] tracking-[-2.125px] text-center"
                 style={{ textShadow: "0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6)" }}
             >
                 UPCOMING EVENTS
             </h1>
-            <p className="text-white text-center pt-6">Join us for the International KKN (Community Service Learning) Winter Batch 2025. This season, we are transcending geographical boundaries to foster sustainable development and cultural exchange.</p>
+            <p className="text-white text-center pt-6 px-2">Join us for the International KKN (Community Service Learning) Winter Batch 2025. This season, we are transcending geographical boundaries to foster sustainable development and cultural exchange.</p>
         </div>
 
-        <div className="flex flex-col space-y-16 lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center lg:pt-8 px-4 items-center align-middle">
+        <div className="flex flex-col space-y-16  lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center pt-10 px-4 items-center align-middle">
         <div className="flex flex-col w-full justify-center max-w-[570px]">
-          <div className="flex flex-col w-full bg-[#6F96D1] rounded-[32px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
             title="GENERAL LECTURE"
             imageSrc="/assets/health.png"
             titleClassName="w-[200px] sm:w-[300px]"
             titleTextClassName="text-[16px] lg:text-[22px]"
-            className="-mt-3 px-3"
+            className="-mt-3 px-3 rounded-4xl"
           />
 
           <div className="flex flex-col md:flex-row justify-between pt-4 gap-4 w-full px-6 pb-8">
@@ -180,13 +175,13 @@ export default function ContactPage() {
 
 
         <div className="flex flex-col w-full justify-center max-w-[570px]">
-          <div className="flex flex-col w-full bg-[#6F96D1] rounded-[32px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
             title="GENERAL LECTURE"
             imageSrc="/assets/economics.png"
             titleClassName="w-[200px] sm:w-[300px]"
             titleTextClassName="text-[16px] lg:text-[22px]"
-            className="-mt-3 px-3"
+            className="-mt-3 px-3 rounded-4xl"
           />
 
           <div className="flex flex-col md:flex-row justify-between pt-4 gap-4 w-full px-6 pb-8">
