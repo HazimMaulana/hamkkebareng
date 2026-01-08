@@ -73,7 +73,7 @@ function EventsCard({
 
       <button
         type="button"
-        className="bg-[#d0e4ff] w-full max-w-[550px] max-h-[295px] aspect-[550/295] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer"
+        className="bg-[#d0e4ff] w-full max-w-[550px] aspect-[550/295] rounded-[26px] shadow-[0px_0px_15px_5px_rgba(0,0,0,0.05)] overflow-hidden cursor-pointer"
       >
         <img
           src={imageSrc}
@@ -141,35 +141,36 @@ export default function ContactPage() {
             <p className="text-white text-center pt-6">Join us for the International KKN (Community Service Learning) Winter Batch 2025. This season, we are transcending geographical boundaries to foster sustainable development and cultural exchange.</p>
         </div>
 
-        <div className="flex flex-col space-y-8 lg:space-y-0 lg:flex-row w-full space-x-12 justify-center lg:pt-8 ">
+        <div className="flex flex-col space-y-16 lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center lg:pt-8 px-4 items-center align-middle">
         <div className="flex flex-col w-full justify-center max-w-[570px]">
-          <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col w-full bg-[#6F96D1] rounded-[32px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
             title="GENERAL LECTURE"
             imageSrc="/assets/health.png"
-            titleClassName="w-[300px]"
-            titleTextClassName="lg:text-[22px]"
-            className="-mt-3"
+            titleClassName="w-[200px] sm:w-[300px]"
+            titleTextClassName="text-[16px] lg:text-[22px]"
+            className="-mt-3 px-3"
           />
 
-          <div className="flex flex-row justify-between pt-2 gap-4 wfull px-6 pb-6">
-            <div className="flex flex-col w-3/5 text-white">
-              <h1 className=" text-3xl font-extrabold">Aging and Health Promotion</h1>
-              <p>Faculty of Medicine</p>
+          <div className="flex flex-col md:flex-row justify-between pt-4 gap-4 w-full px-6 pb-8">
+            <div className="flex flex-col md:w-3/5 text-white">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold mb-2">Aging and Health Promotion</h1>
+              <p className="text-sm md:text-base opacity-90">Faculty of Medicine</p>
             </div>
-            <div className="flex flex-col w-2/5 text-white">
-              <h1 className=" text-3xl font-semibold">Event date:</h1>
-              <h1 className=" text-3xl font-bold">January 25th</h1>
-              <p>Ruang Sidang Prof. Morisco</p>
-              <p>Gedung A</p>
-              <p>Fakultas Teknik</p>
-              <p>Universitas Mataram</p>
+            <div className="flex flex-col md:w-2/5 text-white mt-4 md:mt-0">
+              <p className="text-lg font-semibold">Event date:</p>
+              <h2 className="text-2xl font-bold mb-2">January 25th</h2>
+              <div className="text-sm opacity-90 space-y-0.5">
+                <p>Ruang Sidang Prof. Morisco</p>
+                <p>Gedung A, Fakultas Teknik</p>
+                <p>Universitas Mataram</p>
+              </div>
             </div>
           </div>
 
           <Link href="/our-events/aging-and-health-promotion" className="-mb-6 relative z-10 self-center">
-            <button className="bg-[#091F5B] w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
-              <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+            <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
+              <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
                 SIGN UP NOW
               </p>
             </button>
@@ -179,33 +180,34 @@ export default function ContactPage() {
 
 
         <div className="flex flex-col w-full justify-center max-w-[570px]">
-          <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col w-full bg-[#6F96D1] rounded-[32px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
           <EventsCard
             title="GENERAL LECTURE"
             imageSrc="/assets/economics.png"
-            titleClassName="w-[300px]"
-            titleTextClassName="lg:text-[22px]"
-            className="-mt-3"
+            titleClassName="w-[200px] sm:w-[300px]"
+            titleTextClassName="text-[16px] lg:text-[22px]"
+            className="-mt-3 px-3"
           />
 
-          <div className="flex flex-row justify-between pt-2 gap-4  w-full px-6 pb-6">
-            <div className="flex flex-col w-3/5 text-white">
-              <h1 className=" text-3xl font-extrabold">Development Economics and Impact Evaluation</h1>
-              <p>Faculty of Food, Science and Technology & Faculty of Agriculture</p>
+          <div className="flex flex-col md:flex-row justify-between pt-4 gap-4 w-full px-6 pb-8">
+            <div className="flex flex-col md:w-3/5 text-white">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold mb-2">Development Economics and Impact Evaluation</h1>
+              <p className="text-sm md:text-base opacity-90">Faculty of Food, Science and Technology & Faculty of Agriculture</p>
             </div>
-            <div className="flex flex-col w-2/5 text-white">
-              <h1 className=" text-3xl font-semibold">Event date:</h1>
-              <h1 className=" text-3xl font-bold">January 26th</h1>
-              <p>Ruang Sidang Prof. Morisco</p>
-              <p>Gedung A</p>
-              <p>Fakultas Teknik</p>
-              <p>Universitas Mataram</p>
+            <div className="flex flex-col md:w-2/5 text-white mt-4 md:mt-0">
+              <p className="text-lg font-semibold">Event date:</p>
+              <h2 className="text-2xl font-bold mb-2">January 26th</h2>
+              <div className="text-sm opacity-90 space-y-0.5">
+                <p>Ruang Sidang Prof. Morisco</p>
+                <p>Gedung A, Fakultas Teknik</p>
+                <p>Universitas Mataram</p>
+              </div>
             </div>
           </div>
 
           <Link href="/our-events/development-economics-and-impact-evaluation" className="-mb-6 relative z-10 self-center">
-            <button className="bg-[#091F5B] w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
-              <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+            <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
+              <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
                 SIGN UP NOW
               </p>
             </button>

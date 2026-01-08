@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { SnowEffect } from "./SnowEffect";
 import { Navbar } from "./Navbar";
 import svgPaths from "../imports/svg-aryojtau6r";
@@ -334,6 +335,7 @@ export function KKNHomepage() {
                 Hamkke Bareng is a community service team under the collaboration with SNU-SR, organized by six seventh-semester students united by a shared commitment to growth, collaboration, and social impact. Coming from diverse academic backgrounds and areas of expertise, each member contributes unique skills and perspectives that strengthen our collective work. Through teamwork and mutual support, we strive to create meaningful, sustainable contributions to the communities we serve. Hamkke Bareng, Kita Bareng!
               </p>
 
+              <Link href="/our-team">
               <button
                 type="button"
                 className="bg-[#d0e4ff] px-6 py-4 rounded-[31.5px] shadow-[0px_0px_15px_0px_rgba(9,31,91,0.05)] hover:scale-105 transition-transform mt-8"
@@ -342,6 +344,7 @@ export function KKNHomepage() {
                   Get to know us more!
                 </span>
               </button>
+              </Link>
             </div>
 
             {/* Right */}
