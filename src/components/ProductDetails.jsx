@@ -25,6 +25,7 @@ export function ProductDetails({ onBack, product }) {
   const [isLiked, setIsLiked] = useState(false);
   const [added, setAdded] = useState(false);
   const addedTimeoutRef = useRef(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [bundleStickerOne, setBundleStickerOne] = useState(STICKER_OPTIONS[0]);
   const [bundleStickerTwo, setBundleStickerTwo] = useState(STICKER_OPTIONS[1]);
   const [bundleKeychain, setBundleKeychain] = useState(KEYCHAIN_OPTIONS[0]);
@@ -42,6 +43,9 @@ export function ProductDetails({ onBack, product }) {
     image
   } = product || {};
   const isBundle = (product?.badge || "").toLowerCase() === "bundle";
+  const images = Array.isArray(product?.images) && product.images.length > 0 ? product.images : image ? [image] : [];
+  const activeImage = images[activeImageIndex] || image;
+  const isDetailedImage = typeof activeImage === "string" && activeImage.includes("tshirtdetailed.png");
 
   const reviewsList = [
       {
@@ -77,6 +81,20 @@ export function ProductDetails({ onBack, product }) {
     }
   }, [isBundle, product?.name]);
 
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [product?.name]);
+
+  const handlePrevImage = () => {
+    if (images.length <= 1) return;
+    setActiveImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleNextImage = () => {
+    if (images.length <= 1) return;
+    setActiveImageIndex((prev) => (prev + 1) % images.length);
+  };
+
   const handleAddToCart = () => {
     const sizeValue = sizes.length > 0 ? selectedSize : null;
     const colorValue = colors.length > 0 ? selectedColor : null;
@@ -93,7 +111,7 @@ export function ProductDetails({ onBack, product }) {
       key: isBundle ? `${key}|${bundleStickerOne}|${bundleStickerTwo}|${bundleKeychain}` : key,
       name,
       price,
-      image,
+      image: activeImage || image,
       quantity,
       size: sizeValue,
       color: colorValue,
@@ -142,10 +160,34 @@ export function ProductDetails({ onBack, product }) {
              <div className="absolute inset-4 bg-gradient-to-tr from-[#091F5B]/20 to-[#6F96D1]/20 rounded-[2.5rem] transform rotate-3 scale-95 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-2xl" />
              <div className="relative aspect-square rounded-[2.5rem] overflow-hidden bg-white/50 backdrop-blur-sm border-2 border-white/50 shadow-2xl">
                 <img
-                    src={image}
+                    src={activeImage}
                     alt={name}
-                    className="w-full h-full object-contain p-8"
+                    className={
+                      isDetailedImage
+                        ? "max-w-full max-h-full object-contain p-8 mx-auto my-auto"
+                        : "w-full h-full object-contain p-8"
+                    }
                 />
+                {images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handlePrevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/80 hover:bg-white text-[#091F5B] shadow-lg flex items-center justify-center transition"
+                      aria-label="Previous image"
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/80 hover:bg-white text-[#091F5B] shadow-lg flex items-center justify-center transition"
+                      aria-label="Next image"
+                    >
+                      <ArrowLeft className="h-5 w-5 rotate-180" />
+                    </button>
+                  </>
+                )}
              </div>
           </div>
 

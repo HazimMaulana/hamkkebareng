@@ -125,7 +125,13 @@ export default function StorePage() {
                   className="font-['AGPX',sans-serif] text-white text-[50px] lg:text-[85px] leading-[1.1] tracking-[-2.125px]"
                   style={{ textShadow: "0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6)" }}
                 >
-                  Our Official Merchandise
+                  SHOP OUR
+                </h1>
+                <h1
+                  className="font-['AGPX',sans-serif] text-white text-[50px] lg:text-[85px] leading-[1.1] tracking-[-2.125px]"
+                  style={{ textShadow: "0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6)" }}
+                >
+                  OFFICIAL MERCHANDISE!
                 </h1>
              </div>
              <Merchandise 

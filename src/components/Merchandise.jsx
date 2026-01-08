@@ -9,6 +9,11 @@ export function Merchandise({ onProductClick }) {
       name: "Hamkke Bareng Official T-Shirt",
       price: "Rp. 85.000",
       image: "/products/shirt/Group 15.png",
+      images: [
+        "/products/shirt/Group 15.png",
+        "/images/tshirtdetailed.png",
+        "/images/tshirtSizeChart.png"
+      ],
       description: "Premium group edition shirt.",
       badge: "Shirt",
       badgeColor: "from-[#091F5B] to-[#6F96D1]",
@@ -178,6 +183,11 @@ export function Merchandise({ onProductClick }) {
       name: "Hamkke Bareng T-Shirt Bundle",
       price: "Rp. 99.000",
       image: "/products/Bundling/Group 17.png",
+      images: [
+        "/products/Bundling/Group 17.png",
+        "/images/tshirtdetailed.png",
+        "/images/tshirtSizeChart.png"
+      ],
       description: "Bundle set with exclusive items.",
       badge: "Bundle",
       badgeColor: "from-indigo-400 to-blue-500",

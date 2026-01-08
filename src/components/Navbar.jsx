@@ -14,20 +14,20 @@ export function Navbar() {
         </a>
 
         <div className="ml-auto hidden lg:flex items-center gap-6">
-          <a href="/" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
-            Home
-          </a>
           <a href="/our-team" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             Our Team
+          </a>
+          <a href="/our-program" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+              Our Program
           </a>
           <a href="/scube-center" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             S-Cube Center
           </a>
+          <a href="/our-events" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+            Our Events
+          </a>
           <a href="/store" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
             Store
-          </a>
-          <a href="/contact" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
-            Contact
           </a>
           <a
             href="/cart"
@@ -52,20 +52,23 @@ export function Navbar() {
       {isOpen && (
         <div className="absolute top-[88px] w-[92%] max-w-[1208px] lg:hidden">
           <div className="backdrop-blur-2xl bg-white/10 border border-white/40 rounded-[28px] shadow-[0px_10px_40px_rgba(9,31,91,0.12)] p-6 flex flex-col gap-4">
-            <a href="/" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
-              Home
-            </a>
             <a href="/our-team" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
               Our Team
+            </a>
+            <a href="/our-program" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+              Our Program
             </a>
             <a href="/scube-center" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
               S-Cube Center
             </a>
+            {/* <a href="/contact" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+              Contact
+            </a> */}
+            <a href="/our-events" className="font-['Inter'] font-bold text-[#091f5b] text-[20px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
+              Our Events
+            </a>
             <a href="/store" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
               Store
-            </a>
-            <a href="/contact" className="font-['Inter'] font-bold text-[#091f5b] text-[18px] tracking-[-0.5px] hover:text-[#6F96D1] transition-colors">
-              Contact
             </a>
             <a
               href="/cart"

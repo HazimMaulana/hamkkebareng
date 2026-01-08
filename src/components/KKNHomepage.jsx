@@ -384,14 +384,14 @@ export function KKNHomepage() {
       />
       <ProgramCard
         title="EPS TOPIK"
-        imageSrc="/ourProgramAssets/image 2.png"
+        imageSrc="/ourProgramAssets/image 4.png"
         description="Focused EPS-TOPIK exam prep with targeted practice."
         mascotSrc="/assets/pinkoEPS.png"
         mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-40 h-auto rotate-12"
       />
       <ProgramCard
         title="KOREAN FOR TOURISM"
-        imageSrc="/ourProgramAssets/image 3.png"
+        imageSrc="/ourProgramAssets/image 4.png"
         description="Practical Korean for travel and tourism services."
         titleClassName="w-[300px]"
         titleTextClassName="lg:text-[22px]"
@@ -403,7 +403,7 @@ export function KKNHomepage() {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-y-6 lg:mx-32 lg:pt-4 justify-items-center">
       <ProgramCard
         title="KOREAN FOR BUSINESS"
-        imageSrc="/ourProgramAssets/image 4.png"
+        imageSrc="/ourProgramAssets/kfb.png"
         description="Professional Korean for workplace and business communication."
         titleClassName="w-[300px]"
         titleTextClassName="lg:text-[22px]"
