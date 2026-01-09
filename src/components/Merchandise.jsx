@@ -20,7 +20,7 @@ export function Merchandise({ onProductClick }) {
       rating: 4.9,
       reviews: 31,
       features: ["Soft fabric", "Unisex fit", "Premium print"],
-      sizes: ["S", "M", "L", "XL"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
       colors: [{ name: "White", hex: "#FFFFFF" }]
     },
     {
@@ -91,7 +91,7 @@ export function Merchandise({ onProductClick }) {
     {
       name: "Sticker Pack - Basic Korean",
       price: "Rp. 7000",
-      image: "/products/Sticker/BasicKoreanStickerPack.jpeg",
+      image: "/products/Sticker/BasicKoreanStickerPack.png",
       description: "Sticker pack set with basic Korean theme.",
       badge: "Sticker",
       badgeColor: "from-pink-400 to-rose-500",
@@ -104,7 +104,7 @@ export function Merchandise({ onProductClick }) {
     {
       name: "Sticker Pack - Digital Business",
       price: "Rp. 7000",
-      image: "/products/Sticker/DigitalBusinessStickerPack.jpeg",
+      image: "/products/Sticker/DigitalBusinessStickerPack.png",
       description: "Sticker pack set with digital business theme.",
       badge: "Sticker",
       badgeColor: "from-pink-400 to-rose-500",
@@ -117,7 +117,7 @@ export function Merchandise({ onProductClick }) {
     {
       name: "Sticker Pack - EPS Topic",
       price: "Rp. 7000",
-      image: "/products/Sticker/EPSTOPICStickerPack.jpeg",
+      image: "/products/Sticker/EPSTOPICStickerPack.png",
       description: "Sticker pack set with EPS topic theme.",
       badge: "Sticker",
       badgeColor: "from-pink-400 to-rose-500",
@@ -130,7 +130,7 @@ export function Merchandise({ onProductClick }) {
     {
       name: "Sticker Pack - Korean for Business",
       price: "Rp. 7000",
-      image: "/products/Sticker/KoreanForBusinessStickerPack.jpeg.jpeg",
+      image: "/products/Sticker/KoreanForBusinessStickerPack.png",
       description: "Sticker pack set with Korean for business theme.",
       badge: "Sticker",
       badgeColor: "from-pink-400 to-rose-500",
@@ -143,7 +143,7 @@ export function Merchandise({ onProductClick }) {
     {
       name: "Sticker Pack - Korean for Tourism",
       price: "Rp. 7000",
-      image: "/products/Sticker/KoreanForTourismStickerPack.jpeg",
+      image: "/products/Sticker/KoreanForTourismStickerPack.png",
       description: "Sticker pack set with Korean for tourism theme.",
       badge: "Sticker",
       badgeColor: "from-pink-400 to-rose-500",
@@ -156,7 +156,7 @@ export function Merchandise({ onProductClick }) {
     {
       name: "Sticker Pack - Snowies",
       price: "Rp. 7000",
-      image: "/products/Sticker/SnowiesStickerPack.jpeg",
+      image: "/products/Sticker/SnowiesStickerPack.png",
       description: "Sticker pack set with Snowies theme.",
       badge: "Sticker",
       badgeColor: "from-pink-400 to-rose-500",
@@ -194,7 +194,7 @@ export function Merchandise({ onProductClick }) {
       rating: 4.8,
       reviews: 6,
       features: ["Exclusive set", "Limited release", "Great value"],
-      sizes: ["S", "M", "L", "XL"],
+      sizes: ["S", "M", "L", "XL", "XXL"],
       colors: [{ name: "White", hex: "#FFFFFF" }]
     },
   ];

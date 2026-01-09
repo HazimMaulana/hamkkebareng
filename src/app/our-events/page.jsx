@@ -4,6 +4,11 @@ import { Navbar } from "@/components/Navbar";
 import { SnowEffect } from "@/components/SnowEffect";
 import svgPaths from "@/imports/svg-aryojtau6r";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const MAX_PARTICIPANTS = 75;
+const SPREADSHEET_URL =
+  "https://script.google.com/macros/s/AKfycbyMApDrsbMvFNGFY6z6KX4pahz2Cjv6o7WXDJ1kYFOVnBzbxjiLADUyWi0bkXzuXtPK/exec";
 
 const FALLBACK_STAR_PATH =
   "M12 2.5l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17.9 6.2 20.5l1.1-6.5-4.8-4.6 6.6-.9L12 2.5z";
@@ -85,6 +90,90 @@ function EventsCard({
 export default function ContactPage() {
   const starPath = svgPaths?.pe978a00 ?? FALLBACK_STAR_PATH;
 
+  const [counts, setCounts] = useState({
+    "Aging And Health Promotion": 0,
+    "Development Economics And Impact Evaluation": 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = () => {
+      // Add timestamp to prevent caching (using ? since new URL has no params)
+      fetch(`${SPREADSHEET_URL}?t=${Date.now()}`)
+        .then((r) => r.text())
+        .then((t) => {
+          // Helper to split CSV line respecting quotes
+          const parseCSVLine = (text) => {
+            const result = [];
+            let cell = "";
+            let inQuotes = false;
+            
+            for (let i = 0; i < text.length; i++) {
+              const char = text[i];
+              if (char === '"') {
+                inQuotes = !inQuotes;
+              } else if (char === ',' && !inQuotes) {
+                result.push(cell.trim());
+                cell = "";
+              } else {
+                cell += char;
+              }
+            }
+            result.push(cell.trim());
+            return result;
+          };
+
+          const lines = t.split(/\r?\n/);
+          if (lines.length === 0) return;
+
+          const headers = parseCSVLine(lines[0]);
+          const eventColIndex = headers.indexOf("General Lecture");
+
+          const newCounts = {
+            "Aging And Health Promotion": 0,
+            "Development Economics And Impact Evaluation": 0,
+          };
+
+          lines.slice(1).forEach((line) => {
+            if (!line.trim()) return;
+            const cols = parseCSVLine(line);
+            
+            if (cols.length > eventColIndex) {
+              // Remove wrapping quotes if present: "Event" -> Event
+              let eventName = cols[eventColIndex];
+              if (eventName.startsWith('"') && eventName.endsWith('"')) {
+                eventName = eventName.slice(1, -1);
+              }
+              eventName = eventName.trim();
+              
+              if (newCounts[eventName] !== undefined) {
+                newCounts[eventName]++;
+              }
+            }
+          });
+
+          setCounts(newCounts);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch participant counts", err);
+          setLoading(false);
+        });
+    };
+
+    // Initial fetch
+    fetchData();
+
+    // Poll every 2 seconds for faster updates
+    const intervalId = setInterval(fetchData, 2000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const isAgingFull = counts["Aging And Health Promotion"] >= MAX_PARTICIPANTS;
+  const isEconomicsFull =
+    counts["Development Economics And Impact Evaluation"] >= MAX_PARTICIPANTS;
+
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-b from-[#D0E4FF] to-[#6F96D1] flex flex-col items-center overflow-x-hidden pb-14">
       <SnowEffect />
@@ -136,9 +225,9 @@ export default function ContactPage() {
             <p className="text-white text-center pt-6 px-2">Join us for the International KKN (Community Service Learning) Winter Batch 2025. This season, we are transcending geographical boundaries to foster sustainable development and cultural exchange.</p>
         </div>
 
-        <div className="flex flex-col space-y-16  lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center pt-10  px-4 items-center lg:items-start">
+        <div className="flex flex-col space-y-16  lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center pt-10  px-4 items-center lg:items-stretch">
         <div className="flex flex-col w-full justify-center max-w-[570px]">
-          <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col w-full h-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] justify-between">
           <EventsCard
             title="GENERAL LECTURE"
             imageSrc="/assets/health.png"
@@ -160,22 +249,45 @@ export default function ContactPage() {
                 <p>Gedung A, Fakultas Teknik</p>
                 <p>Universitas Mataram</p>
               </div>
+              <div className="mt-4 bg-white/20 p-2 rounded-lg text-center backdrop-blur-sm">
+                <p className="font-bold text-sm">
+                  {loading
+                    ? "Loading..."
+                    : `${counts["Aging And Health Promotion"]} / ${MAX_PARTICIPANTS} Registered`}
+                </p>
+              </div>
             </div>
           </div>
 
-          <Link href="/our-events/aging-and-health-promotion" className="-mb-6 relative z-10 self-center">
-            <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
-              <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
-                SIGN UP NOW
-              </p>
-            </button>
-          </Link>
+          {!isAgingFull ? (
+            <Link
+              href="/our-events/aging-and-health-promotion"
+              className="-mb-6 relative z-10 self-center"
+            >
+              <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
+                <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  SIGN UP NOW
+                </p>
+              </button>
+            </Link>
+          ) : (
+            <div className="-mb-6 relative z-10 self-center">
+              <button
+                disabled
+                className="bg-gray-500 w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-not-allowed"
+              >
+                <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  FULL
+                </p>
+              </button>
+            </div>
+          )}
           </div>
         </div>
 
 
         <div className="flex flex-col w-full justify-center max-w-[570px]">
-          <div className="flex flex-col w-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <div className="flex flex-col w-full h-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] justify-between">
           <EventsCard
             title="GENERAL LECTURE"
             imageSrc="/assets/economics.png"
@@ -197,16 +309,39 @@ export default function ContactPage() {
                 <p>Gedung A, Fakultas Teknik</p>
                 <p>Universitas Mataram</p>
               </div>
+              <div className="mt-4 bg-white/20 p-2 rounded-lg text-center backdrop-blur-sm">
+                <p className="font-bold text-sm">
+                  {loading
+                    ? "Loading..."
+                    : `${counts["Development Economics And Impact Evaluation"]} / ${MAX_PARTICIPANTS} Registered`}
+                </p>
+              </div>
             </div>
           </div>
 
-          <Link href="/our-events/development-economics-and-impact-evaluation" className="-mb-6 relative z-10 self-center">
-            <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
-              <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
-                SIGN UP NOW
-              </p>
-            </button>
-          </Link>
+          {!isEconomicsFull ? (
+            <Link
+              href="/our-events/development-economics-and-impact-evaluation"
+              className="-mb-6 relative z-10 self-center"
+            >
+              <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
+                <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  SIGN UP NOW
+                </p>
+              </button>
+            </Link>
+          ) : (
+            <div className="-mb-6 relative z-10 self-center">
+              <button
+                disabled
+                className="bg-gray-500 w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-not-allowed"
+              >
+                <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  FULL
+                </p>
+              </button>
+            </div>
+          )}
           </div>
         </div>
 

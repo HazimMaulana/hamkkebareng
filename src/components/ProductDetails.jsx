@@ -47,6 +47,14 @@ export function ProductDetails({ onBack, product }) {
   const activeImage = images[activeImageIndex] || image;
   const isDetailedImage = typeof activeImage === "string" && activeImage.includes("tshirtdetailed.png");
 
+  // Price Calculation
+  const basePrice = parseInt((price || "0").replace(/[^0-9]/g, ""), 10) || 0;
+  const extraCost = selectedSize === "XXL" ? 5000 : 0;
+  const finalPrice = basePrice + extraCost;
+  // Use toLocaleString('id-ID') but we need to ensure the format matches "Rp. 85.000"
+  // toLocaleString for 'id-ID' formats 85000 as "85.000" which is perfect.
+  const displayedPrice = `Rp. ${finalPrice.toLocaleString("id-ID")}`;
+
   const reviewsList = [
       {
         name: "Sarah M.",
@@ -110,7 +118,7 @@ export function ProductDetails({ onBack, product }) {
     addToCart({
       key: isBundle ? `${key}|${bundleStickerOne}|${bundleStickerTwo}|${bundleKeychain}` : key,
       name,
-      price,
+      price: displayedPrice,
       image: activeImage || image,
       quantity,
       size: sizeValue,
@@ -142,7 +150,7 @@ export function ProductDetails({ onBack, product }) {
                   <h1 className="text-4xl lg:text-5xl font-extrabold text-[#091F5B] mb-4 bg-clip-text">
                     {name}
                   </h1>
-                  <p className="text-3xl font-bold text-[#6F96D1]">{price}</p>
+                  <p className="text-3xl font-bold text-[#6F96D1]">{displayedPrice}</p>
                 <div className="flex text-yellow-400">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className={`h-5 w-5 ${i < Math.floor(rating) ? "fill-current" : "text-gray-300"}`} />
