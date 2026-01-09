@@ -43,7 +43,7 @@ const PROGRAMS = [
     imageSrc: "/ourProgramAssets/image 1.png",
     description: "Learn Hangul and everyday beginner conversations.",
     mascotSrc: "/assets/pinkoBasicKorean.png",
-    mascotClassName: "top-1/2 -translate-y-1/2 -right-12 w-32 h-auto rotate-12",
+    mascotClassName: "top-1/2 -translate-y-1/2 -right-12 lg:right-auto lg:-left-12 w-32 h-auto rotate-12",
     href: "/our-program/basic-korean",
   },
   {

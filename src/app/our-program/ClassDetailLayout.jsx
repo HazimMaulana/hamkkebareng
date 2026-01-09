@@ -5,6 +5,7 @@ import { ArrowLeft, CalendarDays, Clock, MapPin, Star } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { SnowEffect } from "@/components/SnowEffect";
 import svgPaths from "@/imports/svg-aryojtau6r";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const FALLBACK_STAR_PATH =
   "M12 2.5l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17.9 6.2 20.5l1.1-6.5-4.8-4.6 6.6-.9L12 2.5z";
@@ -87,13 +88,6 @@ export default function ClassDetailLayout({ data, backHref = "/our-program" }) {
         <Navbar />
 
         <main className="w-full max-w-6xl mx-auto px-6 lg:px-12 py-20">
-          <Link
-            href={backHref}
-            className="mb-8 inline-flex items-center gap-2 px-5 py-3 bg-white/70 backdrop-blur-2xl rounded-full border border-white/60 hover:bg-white/90 transition-all duration-300 hover:scale-105 shadow-xl text-[#091F5B] font-semibold"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Our Program
-          </Link>
 
           <div className="flex flex-col items-center gap-4 mb-12 text-center">
             <h1
@@ -183,43 +177,149 @@ export default function ClassDetailLayout({ data, backHref = "/our-program" }) {
             </div>
           </div>
 
-          <section className="grid lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-1 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40">
-              <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Tutor Profile</h2>
-              <div className="flex flex-col items-center text-center gap-4">
-                <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gradient-to-br from-[#D0E4FF] to-[#6F96D1] animate-pulse flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-16 h-16 text-white/70"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-xl font-bold text-[#091F5B]">{data.tutor.name}</p>
-                  <p className="text-sm text-[#6F96D1] font-semibold">{data.tutor.role}</p>
-                </div>
-                <p className="text-[#091F5B]/80 text-sm leading-relaxed">{data.tutor.bio}</p>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40">
-              <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Class Documentation</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {data.documentation.map((img, i) => (
-                  <div key={`${img}-${i}`} className="rounded-2xl overflow-hidden border border-white/60 shadow-lg bg-white/70">
-                    <img src={img} alt="" className="w-full h-40 object-cover" loading="lazy" />
+          {data.title === "Basic Korean" ? (
+            <div className="flex flex-col gap-10">
+              <div className="grid lg:grid-cols-3 gap-10">
+                <div className="lg:col-span-1 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40 h-full">
+                  <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Tutor Profile</h2>
+                  <div className="flex flex-col items-center text-center gap-4">
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gradient-to-br from-[#D0E4FF] to-[#6F96D1] animate-pulse flex items-center justify-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="w-16 h-16 text-white/70"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-[#091F5B]">{data.tutor.name}</p>
+                      <p className="text-sm text-[#6F96D1] font-semibold">{data.tutor.role}</p>
+                    </div>
+                    <p className="text-[#091F5B]/80 text-sm leading-relaxed">{data.tutor.bio}</p>
                   </div>
-                ))}
+                </div>
+
+                <div className="lg:col-span-2 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40 h-full">
+                  <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Teaching Assistants</h2>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {(data.teachingAssistants || [1, 2, 3, 4]).map((ta, i) => (
+                      <div key={i} className="flex flex-col items-center text-center gap-3">
+                        <div className="w-24 h-24 rounded-full overflow-hidden border-3 border-white shadow-lg bg-gradient-to-br from-[#D0E4FF] to-[#6F96D1] flex items-center justify-center hover:scale-105 transition-transform duration-300">
+                          {ta.image ? (
+                            <img src={ta.image} alt={ta.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              className="w-12 h-12 text-white/70"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-[#091F5B]">{ta.name || `Assistant ${i + 1}`}</p>
+                          <p className="text-xs text-[#6F96D1] font-semibold">{ta.role || "Teaching Asst."}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40 w-full">
+                <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Class Documentation</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                  {data.documentation.map((img, i) => (
+                    <Dialog key={`${img}-${i}`}>
+                      <DialogTrigger asChild>
+                        <div className="rounded-2xl overflow-hidden border border-white/60 shadow-lg bg-white/70 aspect-square cursor-pointer group">
+                          <img
+                            src={img}
+                            alt=""
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-5xl bg-transparent border-none p-0 shadow-none flex justify-center items-center">
+                        <img
+                          src={img}
+                          alt="Class Documentation"
+                          className="max-h-[85vh] w-auto rounded-md object-contain"
+                        />
+                      </DialogContent>
+                    </Dialog>
+                  ))}
+                </div>
               </div>
             </div>
-          </section>
+          ) : (
+            <section className="grid lg:grid-cols-3 gap-10">
+              <div className="lg:col-span-1 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40">
+                <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Tutor Profile</h2>
+                <div className="flex flex-col items-center text-center gap-4">
+                  <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-xl bg-gradient-to-br from-[#D0E4FF] to-[#6F96D1] animate-pulse flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-16 h-16 text-white/70"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xl font-bold text-[#091F5B]">{data.tutor.name}</p>
+                    <p className="text-sm text-[#6F96D1] font-semibold">{data.tutor.role}</p>
+                  </div>
+                  <p className="text-[#091F5B]/80 text-sm leading-relaxed">{data.tutor.bio}</p>
+                </div>
+              </div>
+
+              <div className="lg:col-span-2 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 border border-white/40">
+                <h2 className="text-2xl font-bold text-[#091F5B] mb-6">Class Documentation</h2>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {data.documentation.map((img, i) => (
+                    <Dialog key={`${img}-${i}`}>
+                      <DialogTrigger asChild>
+                        <div className="rounded-2xl overflow-hidden border border-white/60 shadow-lg bg-white/70 cursor-pointer group">
+                          <img
+                            src={img}
+                            alt=""
+                            className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-5xl bg-transparent border-none p-0 shadow-none flex justify-center items-center">
+                        <img
+                          src={img}
+                          alt="Class Documentation"
+                          className="max-h-[85vh] w-auto rounded-md object-contain"
+                        />
+                      </DialogContent>
+                    </Dialog>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
         </main>
       </div>
     </div>

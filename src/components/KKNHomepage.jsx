@@ -383,7 +383,7 @@ export function KKNHomepage() {
         imageSrc="/ourProgramAssets/image 1.png"
         description="Learn Hangul and everyday beginner conversations."
         mascotSrc="/assets/pinkoBasicKorean.png"
-        mascotClassName="top-1/2 -translate-y-1/2 -right-12 w-32 h-auto rotate-12 "
+        mascotClassName="top-1/2 -translate-y-1/2 -right-12 lg:-left-12 lg:right-auto w-32 h-auto rotate-12 "
       />
       <ProgramCard
         title="EPS TOPIK"

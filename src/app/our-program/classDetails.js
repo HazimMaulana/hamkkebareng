@@ -18,9 +18,12 @@ export const CLASS_DETAILS = {
       bio: "Specializes in beginner learners with engaging, step-by-step lessons and speaking practice.",
     },
     documentation: [
+      "/Classes Documentation/Basic Korean/8cfbb38f-6c43-45f7-9512-d27d54ed1d2f.JPG",
+      "/Classes Documentation/Basic Korean/IMG-20251021-WA0037.jpg",
+      "/Classes Documentation/Basic Korean/IMG_3199.jpg",
+      "/Classes Documentation/Basic Korean/IMG_5026.JPG",
       "/Classes Documentation/Basic Korean/IMG_8477.JPG",
       "/Classes Documentation/Basic Korean/IMG_8699.JPG",
-      "/Classes Documentation/Basic Korean/IMG_3199.jpg",
     ],
   },
   "eps-topik": {
@@ -41,9 +44,12 @@ export const CLASS_DETAILS = {
       bio: "Exam-oriented coach with a focus on timing, accuracy, and TOPIK question patterns.",
     },
     documentation: [
+      "/Classes Documentation/EPS TOPIC/0cae1036-7028-408a-963d-13bb39fee55f.JPG",
       "/Classes Documentation/EPS TOPIC/19a0812c-e4a8-49f1-be19-9822116880e5.JPG",
       "/Classes Documentation/EPS TOPIC/2ed19799-1561-4935-8a14-14152f916b2f.jpg",
       "/Classes Documentation/EPS TOPIC/31197c40-e8a2-40c6-8e03-8a70650dc936.JPG",
+      "/Classes Documentation/EPS TOPIC/4bef2d35-246d-4698-a484-38e3f8252f45.JPG",
+      "/Classes Documentation/EPS TOPIC/a39b9bb8-821b-44bf-9c2c-2046c2256864.JPG",
     ],
   },
   "korean-for-tourism": {
@@ -64,9 +70,12 @@ export const CLASS_DETAILS = {
       bio: "Emphasizes scenario-based learning to build confidence in real-world tourism settings.",
     },
     documentation: [
+      "/Classes Documentation/KFT/IMG_5624.JPG",
       "/Classes Documentation/KFT/IMG_5635.JPG",
       "/Classes Documentation/KFT/IMG_5980.JPG",
       "/Classes Documentation/KFT/IMG_6531.JPG",
+      "/Classes Documentation/KFT/IMG_7189.JPG",
+      "/Classes Documentation/KFT/IMG_7793.JPG",
     ],
   },
   "korean-for-business": {
@@ -87,9 +96,12 @@ export const CLASS_DETAILS = {
       bio: "Focuses on professional fluency and confidence for corporate communication.",
     },
     documentation: [
+      "/Classes Documentation/KFB/IMG_5215.JPG",
       "/Classes Documentation/KFB/IMG_6548.JPG",
       "/Classes Documentation/KFB/IMG_6854.jpg",
       "/Classes Documentation/KFB/IMG_7354.JPG",
+      "/Classes Documentation/KFB/IMG_7803.JPG",
+      "/Classes Documentation/KFB/IMG_8093.JPG",
     ],
   },
   "digital-business": {
@@ -110,9 +122,13 @@ export const CLASS_DETAILS = {
       bio: "Guides students on practical growth tactics with hands-on assignments.",
     },
     documentation: [
+      "/Classes Documentation/DB/IMG_5308.JPG",
       "/Classes Documentation/DB/IMG_6599.JPG",
       "/Classes Documentation/DB/IMG_7389.JPG",
       "/Classes Documentation/DB/IMG_7820.JPG",
+      "/Classes Documentation/DB/IMG_8128.JPG",
+      "/Classes Documentation/DB/IMG_8580.JPG",
     ],
   },
 };
+
