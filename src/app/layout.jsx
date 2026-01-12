@@ -11,6 +11,22 @@ export const metadata = {
   description: "KKN International Winter Batch 2025",
   icons: {
     icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
+  },
+  openGraph: {
+    title: "Hamkke Bareng",
+    description: "KKN International Winter Batch 2025",
+    siteName: "Hamkke Bareng",
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 800,
+        height: 600,
+        alt: "Hamkke Bareng Logo",
+      },
+    ],
+    type: "website",
   },
 };
 
