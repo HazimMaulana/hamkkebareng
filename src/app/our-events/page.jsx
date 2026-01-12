@@ -7,8 +7,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const MAX_PARTICIPANTS = 75;
-const SPREADSHEET_URL =
+const MAX_CLOSING_PARTICIPANTS = 500;
+const SPREADSHEET_URL_GENERAL =
   "https://script.google.com/macros/s/AKfycbyMApDrsbMvFNGFY6z6KX4pahz2Cjv6o7WXDJ1kYFOVnBzbxjiLADUyWi0bkXzuXtPK/exec";
+const SPREADSHEET_URL_CLOSING = 
+  "https://script.google.com/macros/s/AKfycbxIxi01ntbNyZiVrmMKFwDG9DVdfL8tgEzft-Lj0Xftw8-HxwFVjtkzySuI4YJe_Yf0/exec";
 
 const FALLBACK_STAR_PATH =
   "M12 2.5l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17.9 6.2 20.5l1.1-6.5-4.8-4.6 6.6-.9L12 2.5z";
@@ -93,72 +96,115 @@ export default function ContactPage() {
   const [counts, setCounts] = useState({
     "Aging And Health Promotion": 0,
     "Development Economics And Impact Evaluation": 0,
+    "Culture Exchange": 0,
   });
   const [loading, setLoading] = useState(true);
+  const [isClosingOnHold, setIsClosingOnHold] = useState(false);
 
   useEffect(() => {
-    const fetchData = () => {
-      // Add timestamp to prevent caching (using ? since new URL has no params)
-      fetch(`${SPREADSHEET_URL}?t=${Date.now()}`)
-        .then((r) => r.text())
-        .then((t) => {
-          // Helper to split CSV line respecting quotes
-          const parseCSVLine = (text) => {
-            const result = [];
-            let cell = "";
-            let inQuotes = false;
-            
-            for (let i = 0; i < text.length; i++) {
-              const char = text[i];
-              if (char === '"') {
-                inQuotes = !inQuotes;
-              } else if (char === ',' && !inQuotes) {
-                result.push(cell.trim());
-                cell = "";
-              } else {
-                cell += char;
-              }
-            }
-            result.push(cell.trim());
-            return result;
-          };
+    const fetchData = async () => {
+      try {
+        const [resGeneral, resClosing] = await Promise.all([
+          fetch(`${SPREADSHEET_URL_GENERAL}?t=${Date.now()}`).then((r) =>
+            r.text()
+          ),
+          fetch(`${SPREADSHEET_URL_CLOSING}?t=${Date.now()}`).then((r) =>
+            r.text()
+          ),
+        ]);
 
-          const lines = t.split(/\r?\n/);
+        // Helper to split CSV line respecting quotes
+        const parseCSVLine = (text) => {
+          const result = [];
+          let cell = "";
+          let inQuotes = false;
+
+          for (let i = 0; i < text.length; i++) {
+            const char = text[i];
+            if (char === '"') {
+              inQuotes = !inQuotes;
+            } else if (char === "," && !inQuotes) {
+              result.push(cell.trim());
+              cell = "";
+            } else {
+              cell += char;
+            }
+          }
+          result.push(cell.trim());
+          return result;
+        };
+
+        const newCounts = {
+          "Aging And Health Promotion": 0,
+          "Development Economics And Impact Evaluation": 0,
+          "Culture Exchange": 0,
+        };
+
+        const processGeneralCSV = (csvText) => {
+          const lines = csvText.split(/\r?\n/);
           if (lines.length === 0) return;
 
           const headers = parseCSVLine(lines[0]);
-          const eventColIndex = headers.indexOf("General Lecture");
+          let eventColIndex = headers.indexOf("General Lecture");
+          
+          if (eventColIndex === -1) {
+            eventColIndex = headers.findIndex(h => h.trim().toLowerCase() === "events");
+          }
 
-          const newCounts = {
-            "Aging And Health Promotion": 0,
-            "Development Economics And Impact Evaluation": 0,
-          };
+          if (eventColIndex === -1) return;
 
           lines.slice(1).forEach((line) => {
             if (!line.trim()) return;
             const cols = parseCSVLine(line);
-            
+
             if (cols.length > eventColIndex) {
-              // Remove wrapping quotes if present: "Event" -> Event
               let eventName = cols[eventColIndex];
-              if (eventName.startsWith('"') && eventName.endsWith('"')) {
+              if (eventName && eventName.startsWith('"') && eventName.endsWith('"')) {
                 eventName = eventName.slice(1, -1);
               }
-              eventName = eventName.trim();
-              
-              if (newCounts[eventName] !== undefined) {
-                newCounts[eventName]++;
+              if (eventName) {
+                eventName = eventName.trim();
+                if (newCounts[eventName] !== undefined) {
+                  newCounts[eventName]++;
+                }
               }
             }
           });
+        };
 
-          setCounts(newCounts);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error("Failed to fetch participant counts", err);
-          setLoading(false);
-        });
+        const processClosingCSV = (csvText) => {
+            const lines = csvText.split(/\r?\n/);
+            // Assuming the first line is header, count all subsequent non-empty lines
+            let count = 0;
+            let checkHold = false;
+
+            if (lines.length > 1) {
+                // Check the first data row (index 1) for "hold"
+                const firstCols = parseCSVLine(lines[1]);
+                // Timestamp, Nama, Asal -> Nama is at index 1
+                if (firstCols.length > 1 && firstCols[1].trim().toLowerCase() === "hold") {
+                    checkHold = true;
+                }
+            }
+            setIsClosingOnHold(checkHold);
+
+            for (let i = 1; i < lines.length; i++) {
+                if (lines[i].trim()) {
+                    count++;
+                }
+            }
+            newCounts["Culture Exchange"] = count;
+        };
+
+        processGeneralCSV(resGeneral);
+        processClosingCSV(resClosing);
+
+        setCounts(newCounts);
+        setLoading(false);
+      } catch (err) {
+        console.error("Failed to fetch participant counts", err);
+        setLoading(false);
+      }
     };
 
     // Initial fetch
@@ -225,7 +271,7 @@ export default function ContactPage() {
             <p className="text-white text-center pt-6 px-2">Join us for the International KKN (Community Service Learning) Winter Batch 2025. This season, we are transcending geographical boundaries to foster sustainable development and cultural exchange.</p>
         </div>
 
-        <div className="flex flex-col space-y-16  lg:space-y-0 lg:flex-row w-full lg:space-x-12 justify-center pt-10  px-4 items-center lg:items-stretch">
+        <div className="flex flex-wrap gap-8 lg:gap-12 w-full justify-center pt-10 px-4 items-stretch">
         <div className="flex flex-col w-full justify-center max-w-[570px]">
           <div className="flex flex-col w-full h-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)] justify-between">
           <EventsCard
@@ -341,6 +387,64 @@ export default function ContactPage() {
                 </p>
               </button>
             </div>
+          )}
+          </div>
+        </div>
+
+        <div className="flex flex-col w-full justify-center max-w-[570px]">
+          <div className="flex flex-col w-full h-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+          <EventsCard
+            title="CLOSING CEREMONY"
+            imageSrc="/assets/closingCeremony.png"
+            titleClassName="w-[200px] sm:w-[300px]"
+            titleTextClassName="text-[16px] lg:text-[22px]"
+            className="-mt-3 px-3 rounded-4xl"
+          />
+
+          <div className="flex flex-col md:flex-row justify-between pt-4 gap-4 w-full px-6 pb-8">
+            <div className="flex flex-col md:w-3/5 text-white">
+              <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold mb-2">Culture Exchange</h1>
+              <p className="text-sm md:text-base opacity-90">Closing Ceremony Event</p>
+            </div>
+            <div className="flex flex-col md:w-2/5 text-white mt-4 md:mt-0">
+              <p className="text-lg font-semibold">Event date:</p>
+              <h2 className="text-2xl font-bold mb-2">January 29th</h2>
+              <div className="text-sm opacity-90 space-y-0.5">
+                <p>Gedung Dome</p>
+                <p>Universitas Mataram</p>
+              </div>
+              <div className="mt-4 bg-white/20 p-2 rounded-lg text-center backdrop-blur-sm">
+                <p className="font-bold text-sm">
+                  {loading
+                    ? "Loading..."
+                    : `${counts["Culture Exchange"]} / ${MAX_CLOSING_PARTICIPANTS} Registered`}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {isClosingOnHold ? (
+            <div className="-mb-6 relative z-10 self-center mt-auto">
+              <button
+                disabled
+                className="bg-gray-500 w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-not-allowed"
+              >
+                <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  COMING SOON
+                </p>
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/our-events/closing-ceremony"
+              className="-mb-6 relative z-10 self-center mt-auto"
+            >
+              <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
+                <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  SIGN UP NOW
+                </p>
+              </button>
+            </Link>
           )}
           </div>
         </div>
