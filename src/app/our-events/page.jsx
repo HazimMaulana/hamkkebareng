@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const MAX_PARTICIPANTS = 75;
-const MAX_CLOSING_PARTICIPANTS = 500;
+const MAX_CLOSING_PARTICIPANTS = 350;
 const SPREADSHEET_URL_GENERAL =
   "https://script.google.com/macros/s/AKfycbyMApDrsbMvFNGFY6z6KX4pahz2Cjv6o7WXDJ1kYFOVnBzbxjiLADUyWi0bkXzuXtPK/exec";
 const SPREADSHEET_URL_CLOSING = 
@@ -219,6 +219,7 @@ export default function ContactPage() {
   const isAgingFull = counts["Aging And Health Promotion"] >= MAX_PARTICIPANTS;
   const isEconomicsFull =
     counts["Development Economics And Impact Evaluation"] >= MAX_PARTICIPANTS;
+  const isClosingFull = counts["Culture Exchange"] >= MAX_CLOSING_PARTICIPANTS;
 
   return (
     <div className="relative min-h-screen w-full bg-gradient-to-b from-[#D0E4FF] to-[#6F96D1] flex flex-col items-center overflow-x-hidden pb-14">
@@ -431,6 +432,17 @@ export default function ContactPage() {
               >
                 <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
                   COMING SOON
+                </p>
+              </button>
+            </div>
+          ) : isClosingFull ? (
+            <div className="-mb-6 relative z-10 self-center mt-auto">
+              <button
+                disabled
+                className="bg-gray-500 w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-not-allowed"
+              >
+                <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
+                  FULL
                 </p>
               </button>
             </div>
