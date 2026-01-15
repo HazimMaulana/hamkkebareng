@@ -269,10 +269,10 @@ export default function CartPage() {
                     <span>{formattedTotalPrice}</span>
                   </div>
                   <Button
-                    className="w-full mt-6 h-12 rounded-full bg-[#091F5B] text-white hover:bg-[#091F5B]/90"
-                    onClick={() => setShowCheckoutForm(true)}
+                    disabled
+                    className="w-full mt-6 h-12 rounded-full bg-gray-400 text-white cursor-not-allowed"
                   >
-                    Checkout
+                    We'll Be Right Back
                   </Button>
                   {showCheckoutForm && (
                     <form className="mt-6 space-y-4" onSubmit={handleCheckoutSubmit}>

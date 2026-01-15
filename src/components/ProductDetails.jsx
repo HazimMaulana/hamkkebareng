@@ -334,14 +334,16 @@ export function ProductDetails({ onBack, product }) {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-col">
                 <Button
-                  onClick={handleAddToCart}
-                  className="flex-1 h-14 bg-[#091F5B] hover:bg-[#091F5B]/90 text-white rounded-2xl text-lg font-bold shadow-xl shadow-[#091F5B]/20 hover:-translate-y-1 transition-all duration-300"
+                  disabled
+                  className="flex-1 h-14 bg-gray-400 text-white rounded-2xl text-lg font-bold shadow-xl cursor-not-allowed"
                 >
-                    <ShoppingCart className="mr-2 h-5 w-5" />
-                    {added ? "Added" : "Add to Cart"}
+                    We'll Be Right Back
                 </Button>
+                <p className="text-center text-[#091F5B] font-semibold">
+                    Orders are temporarily paused. We'll be back soon!
+                </p>
             </div>
             
           </div>
