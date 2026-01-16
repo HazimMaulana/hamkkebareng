@@ -409,7 +409,7 @@ export default function ContactPage() {
             </div>
             <div className="flex flex-col md:w-2/5 text-white mt-4 md:mt-0">
               <p className="text-lg font-semibold">Event date:</p>
-              <h2 className="text-2xl font-bold mb-2">January 29th</h2>
+              <h2 className="text-2xl font-bold mb-2">January 28th</h2>
               <div className="text-sm opacity-90 space-y-0.5">
                 <p>Gedung Dome</p>
                 <p>Universitas Mataram</p>
