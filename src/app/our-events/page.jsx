@@ -406,6 +406,9 @@ export default function ContactPage() {
             <div className="flex flex-col md:w-3/5 text-white">
               <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold mb-2">Culture Exchange</h1>
               <p className="text-sm md:text-base opacity-90">Closing Ceremony Event</p>
+              <p className="text-xs md:text-sm text-yellow-300 mt-2 font-medium italic">
+                *For participants who passed the dispatch, there is no need to register.
+              </p>
             </div>
             <div className="flex flex-col md:w-2/5 text-white mt-4 md:mt-0">
               <p className="text-lg font-semibold">Event date:</p>

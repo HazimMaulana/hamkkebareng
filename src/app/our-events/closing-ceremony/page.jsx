@@ -161,6 +161,9 @@ export default function ClosingCeremonyRegistrationPage() {
           <p className="text-white text-center pt-4 text-xl font-semibold">
             {eventName}
           </p>
+          <p className="text-yellow-300 text-center pt-2 text-sm md:text-base font-medium italic">
+            *For participants who passed the dispatch, there is no need to register.
+          </p>
         </div>
 
         <div className="w-full max-w-[600px] px-4 mt-8">
