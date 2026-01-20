@@ -7,7 +7,7 @@ export function Merchandise({ onProductClick }) {
   const products = [
     {
       name: "Hamkke Bareng Official T-Shirt",
-      price: "Rp. 85.000",
+      price: "Rp. 90.000",
       image: "/products/shirt/Group 15.png",
       images: [
         "/products/shirt/Group 15.png",
@@ -25,7 +25,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Totebag - Hamkke Bareng",
-      price: "Rp. 55.000",
+      price: "Rp. 65.000",
       image: "/products/Totebag/Group 2.png",
       description: "Everyday totebag with official design.",
       badge: "Totebag",
@@ -51,7 +51,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Keychain - hamkke bareng 1",
-      price: "Rp. 13.000",
+      price: "Rp. 18.000",
       image: "/products/Keychain/HB1 KEYCHAIN.png",
       description: "Compact keychain with HB1 design.",
       badge: "Keychain",
@@ -64,7 +64,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Keychain - hamkke bareng 2",
-      price: "Rp. 13.000",
+      price: "Rp. 18.000",
       image: "/products/Keychain/HB2 KEYCHAIN.png",
       description: "Compact keychain with HB2 design.",
       badge: "Keychain",
@@ -77,7 +77,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Keychain - Pinko",
-      price: "Rp. 13.000",
+      price: "Rp. 18.000",
       image: "/products/Keychain/PINKO KEYCHAIN.png",
       description: "Compact keychain with Pinko design.",
       badge: "Keychain",
@@ -90,7 +90,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Sticker Pack - Basic Korean",
-      price: "Rp. 7000",
+      price: "Rp. 10.000",
       image: "/products/Sticker/BasicKoreanStickerPack.png",
       description: "Sticker pack set with basic Korean theme.",
       badge: "Sticker",
@@ -103,7 +103,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Sticker Pack - Digital Business",
-      price: "Rp. 7000",
+      price: "Rp. 10.000",
       image: "/products/Sticker/DigitalBusinessStickerPack.png",
       description: "Sticker pack set with digital business theme.",
       badge: "Sticker",
@@ -116,7 +116,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Sticker Pack - EPS Topic",
-      price: "Rp. 7000",
+      price: "Rp. 10.000",
       image: "/products/Sticker/EPSTOPICStickerPack.png",
       description: "Sticker pack set with EPS topic theme.",
       badge: "Sticker",
@@ -129,7 +129,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Sticker Pack - Korean for Business",
-      price: "Rp. 7000",
+      price: "Rp. 10.000",
       image: "/products/Sticker/KoreanForBusinessStickerPack.png",
       description: "Sticker pack set with Korean for business theme.",
       badge: "Sticker",
@@ -142,7 +142,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Sticker Pack - Korean for Tourism",
-      price: "Rp. 7000",
+      price: "Rp. 10.000",
       image: "/products/Sticker/KoreanForTourismStickerPack.png",
       description: "Sticker pack set with Korean for tourism theme.",
       badge: "Sticker",
@@ -155,7 +155,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Sticker Pack - Snowies",
-      price: "Rp. 7000",
+      price: "Rp. 10.000",
       image: "/products/Sticker/SnowiesStickerPack.png",
       description: "Sticker pack set with Snowies theme.",
       badge: "Sticker",
@@ -168,7 +168,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Hamkke Bareng Tote Bag Bundle",
-      price: "Rp. 79.000",
+      price: "Rp. 89.000",
       image: "/products/Bundling/Group 16.png",
       description: "Bundle set with exclusive items.",
       badge: "Bundle",
@@ -181,7 +181,7 @@ export function Merchandise({ onProductClick }) {
     },
     {
       name: "Hamkke Bareng T-Shirt Bundle",
-      price: "Rp. 99.000",
+      price: "Rp. 110.000",
       image: "/products/Bundling/Group 17.png",
       images: [
         "/products/Bundling/Group 17.png",

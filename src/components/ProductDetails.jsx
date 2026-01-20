@@ -194,6 +194,20 @@ export function ProductDetails({ onBack, product }) {
                     >
                       <ArrowLeft className="h-5 w-5 rotate-180" />
                     </button>
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                        {images.map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setActiveImageIndex(idx)}
+                            className={`h-2 rounded-full transition-all duration-300 ${
+                              idx === activeImageIndex
+                                ? "bg-[#091F5B] w-6"
+                                : "bg-[#091F5B]/30 hover:bg-[#091F5B]/50 w-2"
+                            }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                          />
+                        ))}
+                    </div>
                   </>
                 )}
              </div>
@@ -335,15 +349,39 @@ export function ProductDetails({ onBack, product }) {
 
             {/* Actions */}
             <div className="flex gap-4 flex-col">
-                <Button
-                  disabled
-                  className="flex-1 h-14 bg-gray-400 text-white rounded-2xl text-lg font-bold shadow-xl cursor-not-allowed"
+              <Button
+                  onClick={handleAddToCart}
+                  disabled={added}
+                  className={`flex-1 h-14 rounded-2xl text-lg font-bold shadow-xl transition-all duration-300 ${
+                    added
+                      ? "bg-green-500 text-white"
+                      : "bg-[#091F5B] text-white hover:bg-[#6F96D1] hover:scale-[1.02]"
+                  }`}
                 >
-                    We'll Be Right Back
+                  <ShoppingCart className={`mr-2 h-5 w-5 ${added ? "hidden" : "block"}`} />
+                  {added ? (
+                    <span className="flex items-center gap-2">
+                       <Check className="h-5 w-5" />
+                       Added to Cart
+                    </span>
+                  ) : (
+                    "Add to Cart"
+                  )}
                 </Button>
-                <p className="text-center text-[#091F5B] font-semibold">
-                    Orders are temporarily paused. We'll be back soon!
-                </p>
+                <div className="grid grid-cols-3 gap-2 text-center text-xs font-medium text-[#091F5B]/70 mt-2">
+                   <div className="flex flex-col items-center gap-1">
+                      <Truck className="h-4 w-4" />
+                      <span>Fast Delivery</span>
+                   </div>
+                   <div className="flex flex-col items-center gap-1">
+                      <RefreshCw className="h-4 w-4" />
+                      <span>Easy Returns</span>
+                   </div>
+                   <div className="flex flex-col items-center gap-1">
+                      <Shield className="h-4 w-4" />
+                      <span>Secure Payment</span>
+                   </div>
+                </div>
             </div>
             
           </div>

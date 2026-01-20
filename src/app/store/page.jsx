@@ -133,12 +133,6 @@ export default function StorePage() {
                 >
                   OFFICIAL MERCHANDISE!
                 </h1>
-                <h2
-                  className="font-['AGPX',sans-serif] text-white/90 text-[30px] lg:text-[40px] mt-4"
-                  style={{ textShadow: "0 0 10px rgba(255, 255, 255, 0.5)" }}
-                >
-                  WE'LL BE RIGHT BACK
-                </h2>
              </div>
              <Merchandise 
                 onProductClick={(product) => {
