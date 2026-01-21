@@ -350,23 +350,10 @@ export function ProductDetails({ onBack, product }) {
             {/* Actions */}
             <div className="flex gap-4 flex-col">
               <Button
-                  onClick={handleAddToCart}
-                  disabled={added}
-                  className={`flex-1 h-14 rounded-2xl text-lg font-bold shadow-xl transition-all duration-300 ${
-                    added
-                      ? "bg-green-500 text-white"
-                      : "bg-[#091F5B] text-white hover:bg-[#6F96D1] hover:scale-[1.02]"
-                  }`}
+                  disabled
+                  className="flex-1 h-14 rounded-2xl text-lg font-bold shadow-xl bg-gray-400 text-white cursor-not-allowed"
                 >
-                  <ShoppingCart className={`mr-2 h-5 w-5 ${added ? "hidden" : "block"}`} />
-                  {added ? (
-                    <span className="flex items-center gap-2">
-                       <Check className="h-5 w-5" />
-                       Added to Cart
-                    </span>
-                  ) : (
-                    "Add to Cart"
-                  )}
+                  We'll Be Right Back
                 </Button>
                 <div className="grid grid-cols-3 gap-2 text-center text-xs font-medium text-[#091F5B]/70 mt-2">
                    <div className="flex flex-col items-center gap-1">
