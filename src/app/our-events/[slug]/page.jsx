@@ -303,9 +303,9 @@ export default function EventRegistrationPage() {
                   </div>
 
                   <Button
-                    className="w-full bg-[#091F5B] hover:bg-[#091F5B]/90 text-white font-bold py-6 rounded-xl text-lg mt-4 shadow-lg disabled:opacity-50"
+                    className="disabled w-full bg-[#091F5B] hover:bg-[#091F5B]/90 text-white font-bold py-6 rounded-xl text-lg mt-4 shadow-lg disabled:opacity-50"
                     type="submit"
-                    disabled={loading}
+                    disabled={true}
                   >
                     {loading ? "SUBMITTING..." : "SUBMIT REGISTRATION"}
                   </Button>
