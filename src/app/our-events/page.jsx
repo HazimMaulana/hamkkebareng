@@ -427,40 +427,53 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {isClosingOnHold ? (
-            <div className="-mb-6 relative z-10 self-center mt-auto">
+          <div className="-mb-6 relative z-10 self-center mt-auto">
               <button
                 disabled
                 className="bg-gray-500 w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-not-allowed"
               >
                 <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
-                  COMING SOON
+                  CLOSED
                 </p>
               </button>
             </div>
-          ) : isClosingFull ? (
-            <div className="-mb-6 relative z-10 self-center mt-auto">
-              <button
-                disabled
-                className="bg-gray-500 w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-not-allowed"
-              >
-                <p className="font-['Inter'] font-bold text-white text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
-                  FULL
-                </p>
-              </button>
+          </div>
+        </div>
+
+        <div className="flex flex-col w-full justify-center max-w-[570px]">
+          <div className="flex flex-col w-full h-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
+            <EventsCard
+              title="REGISTRATION"
+              imageSrc="/assets/closingCeremony.png"
+              titleClassName="w-[200px] sm:w-[300px]"
+              titleTextClassName="text-[16px] lg:text-[22px]"
+              className="-mt-3 px-3 rounded-4xl"
+            />
+
+            <div className="flex flex-col md:flex-row justify-between pt-4 gap-4 w-full px-6 pb-8">
+              <div className="flex flex-col md:w-3/5 text-white">
+                <h1 className="text-xl md:text-2xl lg:text-3xl font-extrabold mb-2">International Community Service Summer 2026</h1>
+                <p className="text-sm md:text-base opacity-90">Open Recruitment</p>
+              </div>
+              <div className="flex flex-col md:w-2/5 text-white mt-4 md:mt-0">
+                <p className="text-lg font-semibold">Event date:</p>
+                <h2 className="text-2xl font-bold mb-2">25 Feb - 5 March</h2>
+                <div className="text-sm opacity-90 space-y-0.5">
+                  <p>Register Now!</p>
+                </div>
+              </div>
             </div>
-          ) : (
+
             <Link
-              href="/our-events/closing-ceremony"
+              href="/our-events/summer-2026-registration"
               className="-mb-6 relative z-10 self-center mt-auto"
             >
               <button className="bg-[#091F5B] w-[180px] sm:w-[200px] h-[48px] rounded-[42px] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer hover:bg-[#091f5b]/90 transition-colors">
                 <p className="font-['Inter'] font-bold text-[#D0E4FF] text-[18px] sm:text-[20px] lg:text-[22px] tracking-[-0.625px] text-center uppercase">
-                  SIGN UP NOW
+                  REGISTER
                 </p>
               </button>
             </Link>
-          )}
           </div>
         </div>
 
