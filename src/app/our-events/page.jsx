@@ -444,7 +444,7 @@ export default function ContactPage() {
           <div className="flex flex-col w-full h-full bg-[#6F96D1] rounded-4xl shadow-[0px_4px_4px_rgba(0,0,0,0.25)]">
             <EventsCard
               title="REGISTRATION"
-              imageSrc="/assets/closingCeremony.png"
+              imageSrc="/images/regisForm.png"
               titleClassName="w-[200px] sm:w-[300px]"
               titleTextClassName="text-[16px] lg:text-[22px]"
               className="-mt-3 px-3 rounded-4xl"
