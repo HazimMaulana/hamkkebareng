@@ -105,6 +105,51 @@ const FILE_FIELDS = [
   "surat_rekomendasi",
 ];
 
+const FILE_VALIDATION_RULES = {
+  cv: {
+    label: "Curriculum Vitae (CV)",
+    accept: ".pdf",
+    extensions: ["pdf"],
+    mimeTypes: ["application/pdf"],
+    allowedFormatLabel: "PDF",
+  },
+  porto: {
+    label: "Portfolio",
+    accept: ".pdf",
+    extensions: ["pdf"],
+    mimeTypes: ["application/pdf"],
+    allowedFormatLabel: "PDF",
+  },
+  jadwal: {
+    label: "Study Schedule (Highlight) & SIA Schedule",
+    accept: ".pdf,.png,.jpg,.jpeg",
+    extensions: ["pdf", "png", "jpg", "jpeg"],
+    mimeTypes: ["application/pdf", "image/png", "image/jpeg", "image/jpg"],
+    allowedFormatLabel: "PDF atau gambar (PNG/JPG)",
+  },
+  krs: {
+    label: "Study Plan Card (KRS)",
+    accept: ".pdf",
+    extensions: ["pdf"],
+    mimeTypes: ["application/pdf"],
+    allowedFormatLabel: "PDF",
+  },
+  english_proficiency: {
+    label: "English Language Proficiency Certificate",
+    accept: ".png,.jpg,.jpeg",
+    extensions: ["png", "jpg", "jpeg"],
+    mimeTypes: ["image/png", "image/jpeg", "image/jpg"],
+    allowedFormatLabel: "gambar (PNG/JPG)",
+  },
+  surat_rekomendasi: {
+    label: "Recommendation Letter",
+    accept: ".pdf",
+    extensions: ["pdf"],
+    mimeTypes: ["application/pdf"],
+    allowedFormatLabel: "PDF",
+  },
+};
+
 const CONTACT_PERSONS = [
   {
     name: "Kiki",
@@ -127,42 +172,66 @@ export default function RegistrationPage() {
   const starPath = svgPaths?.pe978a00 ?? FALLBACK_STAR_PATH;
   // State machine: 'idle' | 'submitting' | 'success'
   const [submissionState, setSubmissionState] = useState('idle');
-  const [fileSizeError, setFileSizeError] = useState("");
+  const [fileError, setFileError] = useState("");
 
   // GANTI DENGAN URL DARI GOOGLE APPS SCRIPT ANDA
   // Pastikan Anda sudah deploy script seperti yang dijelaskan sebelumnya
   const WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"; 
 
-  const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) {
-      setFileSizeError("");
-      return;
+  const getFileExtension = (filename = "") => filename.split(".").pop()?.toLowerCase() ?? "";
+
+  const validateFile = (fieldName, file) => {
+    if (!file || file.size === 0) {
+      return "";
+    }
+
+    const rule = FILE_VALIDATION_RULES[fieldName];
+    if (!rule) {
+      return "";
+    }
+
+    const extension = getFileExtension(file.name);
+    const mimeType = (file.type || "").toLowerCase();
+    const isExtensionAllowed = rule.extensions.includes(extension);
+    const isMimeAllowed = mimeType ? rule.mimeTypes.includes(mimeType) : true;
+
+    if (!isExtensionAllowed || !isMimeAllowed) {
+      return `Format file untuk ${rule.label} harus ${rule.allowedFormatLabel}.`;
     }
 
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      const message = `Ukuran file maksimal ${MAX_FILE_SIZE_MB}MB. File "${file.name}" terlalu besar.`;
-      setFileSizeError(message);
-      alert(message);
+      return `Ukuran file maksimal ${MAX_FILE_SIZE_MB}MB. File "${file.name}" terlalu besar.`;
+    }
+
+    return "";
+  };
+
+  const handleFileChange = (e) => {
+    const fieldName = e.target.name;
+    const file = e.target.files?.[0];
+    const errorMessage = validateFile(fieldName, file);
+    if (errorMessage) {
+      setFileError(errorMessage);
+      alert(errorMessage);
       e.target.value = "";
       return;
     }
 
-    setFileSizeError("");
+    setFileError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
-    setFileSizeError("");
+    setFileError("");
 
     for (const fieldName of FILE_FIELDS) {
       const file = formData.get(fieldName);
-      if (file && file.size > MAX_FILE_SIZE_BYTES) {
-        const message = `Ukuran file "${file.name}" melebihi batas ${MAX_FILE_SIZE_MB}MB.`;
-        setFileSizeError(message);
-        alert(message);
+      const errorMessage = validateFile(fieldName, file);
+      if (errorMessage) {
+        setFileError(errorMessage);
+        alert(errorMessage);
         return;
       }
     }
@@ -237,7 +306,7 @@ export default function RegistrationPage() {
 
       if (result.result === "success") {
         setSubmissionState("success");
-        setFileSizeError("");
+        setFileError("");
         // Reset form or redirect here if needed
         form.reset(); 
         // Optional: window.location.href = "/our-events";
@@ -443,44 +512,44 @@ export default function RegistrationPage() {
               {/* File Uploads Section */}
               <div className="space-y-4 pt-4 border-t border-[#091F5B]/20">
                 <h3 className="font-bold text-[#091F5B] text-xl">Supporting Documents</h3>
-                {fileSizeError && (
-                  <p className="text-sm font-semibold text-red-600">{fileSizeError}</p>
+                {fileError && (
+                  <p className="text-sm font-semibold text-red-600">{fileError}</p>
                 )}
                 
                 <div className="">
                   <Label htmlFor="cv" className="text-[#091F5B] font-semibold text-base">Curriculum Vitae (CV)</Label>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="cv" name="cv" type="file" required accept=".pdf,.doc,.docx" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="cv" name="cv" type="file" required accept={FILE_VALIDATION_RULES.cv.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                 <div className="">
                   <Label htmlFor="porto" className="text-[#091F5B] font-semibold text-base">Portfolio</Label>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="porto" name="porto" type="file" required accept=".pdf,.png,.jpg,.jpeg,.zip" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="porto" name="porto" type="file" required accept={FILE_VALIDATION_RULES.porto.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                 <div className="">
                   <Label htmlFor="jadwal" className="text-[#091F5B] font-semibold text-base">Study Schedule (Highlight) & SIA Schedule</Label>
                   <p className="text-xs text-gray-500 pb-2">PDF File or IMG (Maks. 2MB)</p>
-                  <Input id="jadwal" name="jadwal" type="file" required accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="jadwal" name="jadwal" type="file" required accept={FILE_VALIDATION_RULES.jadwal.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                 <div className="">
                   <Label htmlFor="krs" className="text-[#091F5B] font-semibold text-base">Study Plan Card (KRS)</Label>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="krs" name="krs" type="file" required accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="krs" name="krs" type="file" required accept={FILE_VALIDATION_RULES.krs.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                 <div className="">
                   <Label htmlFor="english_proficiency" className="text-[#091F5B] font-semibold text-base">English Language Proficiency Certificate (IELTS or TOEFL)</Label>
                   <p className="text-xs text-gray-500 pb-2">IMG File (Maks. 2MB)</p>
-                  <Input id="english_proficiency" name="english_proficiency" type="file" required accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="english_proficiency" name="english_proficiency" type="file" required accept={FILE_VALIDATION_RULES.english_proficiency.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                  <div className="">
                   <Label htmlFor="surat_rekomendasi" className="text-[#091F5B] font-semibold text-base">Recommendation Letter</Label>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" required accept=".pdf,.doc,.docx" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" required accept={FILE_VALIDATION_RULES.surat_rekomendasi.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
               </div>
 
