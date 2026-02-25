@@ -102,6 +102,7 @@ const FILE_FIELDS = [
   "jadwal",
   "krs",
   "english_proficiency",
+  "korean_proficiency",
   "surat_rekomendasi",
 ];
 
@@ -140,6 +141,13 @@ const FILE_VALIDATION_RULES = {
     extensions: ["png", "jpg", "jpeg"],
     mimeTypes: ["image/png", "image/jpeg", "image/jpg"],
     allowedFormatLabel: "gambar (PNG/JPG)",
+  },
+  korean_proficiency: {
+    label: "Korean Proficiency Certificate (EPS TOPIK / TOPIK)",
+    accept: ".pdf,.png,.jpg,.jpeg",
+    extensions: ["pdf", "png", "jpg", "jpeg"],
+    mimeTypes: ["application/pdf", "image/png", "image/jpeg", "image/jpg"],
+    allowedFormatLabel: "PDF atau gambar (PNG/JPG)",
   },
   surat_rekomendasi: {
     label: "Recommendation Letter",
@@ -544,6 +552,12 @@ export default function RegistrationPage() {
                   <Label htmlFor="english_proficiency" className="text-[#091F5B] font-semibold text-base">English Language Proficiency Certificate (IELTS or TOEFL)</Label>
                   <p className="text-xs text-gray-500 pb-2">IMG File (Maks. 2MB)</p>
                   <Input id="english_proficiency" name="english_proficiency" type="file" required accept={FILE_VALIDATION_RULES.english_proficiency.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                </div>
+
+                <div className="">
+                  <Label htmlFor="korean_proficiency" className="text-[#091F5B] font-semibold text-base">Korean Proficiency Certificate (EPS TOPIK / TOPIK)</Label>
+                  <p className="text-xs text-gray-500 pb-2">PDF or IMG File (Optional, Maks. 2MB)</p>
+                  <Input id="korean_proficiency" name="korean_proficiency" type="file" accept={FILE_VALIDATION_RULES.korean_proficiency.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                  <div className="">
