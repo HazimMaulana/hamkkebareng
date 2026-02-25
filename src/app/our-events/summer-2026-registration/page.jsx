@@ -93,20 +93,81 @@ const DOT_SNOW_POSITIONS = [
   { left: 780, top: 1660, size: 11, opacity: 0.5, type: "dot" },
 ];
 
+const MAX_FILE_SIZE_MB = 2;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
+const FILE_FIELDS = [
+  "cv",
+  "porto",
+  "jadwal",
+  "krs",
+  "english_proficiency",
+  "surat_rekomendasi",
+];
+
+const CONTACT_PERSONS = [
+  {
+    name: "Kiki",
+    phone: "+62 819-3754-2183",
+    href: "https://wa.me/6281937542183",
+  },
+  {
+    name: "Eva",
+    phone: "+62 878-5761-0552",
+    href: "https://wa.me/6287857610552",
+  },
+  {
+    name: "Jim",
+    phone: "+62 877-6856-6204",
+    href: "https://wa.me/6287768566204",
+  },
+];
+
 export default function RegistrationPage() {
   const starPath = svgPaths?.pe978a00 ?? FALLBACK_STAR_PATH;
   // State machine: 'idle' | 'submitting' | 'success'
   const [submissionState, setSubmissionState] = useState('idle');
+  const [fileSizeError, setFileSizeError] = useState("");
 
   // GANTI DENGAN URL DARI GOOGLE APPS SCRIPT ANDA
   // Pastikan Anda sudah deploy script seperti yang dijelaskan sebelumnya
   const WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"; 
 
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setFileSizeError("");
+      return;
+    }
+
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+      const message = `Ukuran file maksimal ${MAX_FILE_SIZE_MB}MB. File "${file.name}" terlalu besar.`;
+      setFileSizeError(message);
+      alert(message);
+      e.target.value = "";
+      return;
+    }
+
+    setFileSizeError("");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmissionState('submitting');
-
     const form = e.target;
+    const formData = new FormData(form);
+    setFileSizeError("");
+
+    for (const fieldName of FILE_FIELDS) {
+      const file = formData.get(fieldName);
+      if (file && file.size > MAX_FILE_SIZE_BYTES) {
+        const message = `Ukuran file "${file.name}" melebihi batas ${MAX_FILE_SIZE_MB}MB.`;
+        setFileSizeError(message);
+        alert(message);
+        return;
+      }
+    }
+
+    setSubmissionState("submitting");
     
     // Helper function to read file as base64
     const readFile = (file) => {
@@ -123,7 +184,6 @@ export default function RegistrationPage() {
     };
 
     try {
-      const formData = new FormData(form);
       const payload = {};
 
       // Text fields - MENGGUNAKAN KEY YANG SESUAI DENGAN GOOGLE APPS SCRIPT
@@ -137,9 +197,7 @@ export default function RegistrationPage() {
       payload.motivation = formData.get('motivation');
       
       // File fields processing
-      const fileFields = ['cv', 'porto', 'jadwal', 'krs', 'english_proficiency', 'surat_rekomendasi'];
-      
-      for (const fieldName of fileFields) {
+      for (const fieldName of FILE_FIELDS) {
         const file = formData.get(fieldName);
         if (file && file.size > 0) {
            // Proses file menjadi object { mimeType, data: base64 }
@@ -179,6 +237,7 @@ export default function RegistrationPage() {
 
       if (result.result === "success") {
         setSubmissionState("success");
+        setFileSizeError("");
         // Reset form or redirect here if needed
         form.reset(); 
         // Optional: window.location.href = "/our-events";
@@ -384,35 +443,44 @@ export default function RegistrationPage() {
               {/* File Uploads Section */}
               <div className="space-y-4 pt-4 border-t border-[#091F5B]/20">
                 <h3 className="font-bold text-[#091F5B] text-xl">Supporting Documents</h3>
+                {fileSizeError && (
+                  <p className="text-sm font-semibold text-red-600">{fileSizeError}</p>
+                )}
                 
-                <div className="space-y-2">
+                <div className="">
                   <Label htmlFor="cv" className="text-[#091F5B] font-semibold text-base">Curriculum Vitae (CV)</Label>
-                  <Input id="cv" name="cv" type="file" required accept=".pdf,.doc,.docx" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
+                  <Input id="cv" name="cv" type="file" required accept=".pdf,.doc,.docx" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
-                <div className="space-y-2">
+                <div className="">
                   <Label htmlFor="porto" className="text-[#091F5B] font-semibold text-base">Portfolio</Label>
-                  <Input id="porto" name="porto" type="file" required accept=".pdf,.png,.jpg,.jpeg,.zip" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
+                  <Input id="porto" name="porto" type="file" required accept=".pdf,.png,.jpg,.jpeg,.zip" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
-                <div className="space-y-2">
+                <div className="">
                   <Label htmlFor="jadwal" className="text-[#091F5B] font-semibold text-base">Study Schedule (Highlight) & SIA Schedule</Label>
-                  <Input id="jadwal" name="jadwal" type="file" required accept=".pdf,.png,.jpg,.jpeg" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <p className="text-xs text-gray-500 pb-2">PDF File or IMG (Maks. 2MB)</p>
+                  <Input id="jadwal" name="jadwal" type="file" required accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
-                <div className="space-y-2">
+                <div className="">
                   <Label htmlFor="krs" className="text-[#091F5B] font-semibold text-base">Study Plan Card (KRS)</Label>
-                  <Input id="krs" name="krs" type="file" required accept=".pdf,.png,.jpg,.jpeg" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
+                  <Input id="krs" name="krs" type="file" required accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="english_proficiency" className="text-[#091F5B] font-semibold text-base">English Language Proficiency Certificate</Label>
-                  <Input id="english_proficiency" name="english_proficiency" type="file" required accept=".pdf,.png,.jpg,.jpeg" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                <div className="">
+                  <Label htmlFor="english_proficiency" className="text-[#091F5B] font-semibold text-base">English Language Proficiency Certificate (IELTS or TOEFL)</Label>
+                  <p className="text-xs text-gray-500 pb-2">IMG File (Maks. 2MB)</p>
+                  <Input id="english_proficiency" name="english_proficiency" type="file" required accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
-                 <div className="space-y-2">
+                 <div className="">
                   <Label htmlFor="surat_rekomendasi" className="text-[#091F5B] font-semibold text-base">Recommendation Letter</Label>
-                  <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" required accept=".pdf,.doc,.docx" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
+                  <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" required accept=".pdf,.doc,.docx" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
               </div>
 
@@ -424,6 +492,26 @@ export default function RegistrationPage() {
                 >
                   {submissionState === 'submitting' ? "Proccesing..." : "SUBMIT REGISTRATION"}
                 </Button>
+              </div>
+
+              <div className="pt-4 border-t border-[#091F5B]/20 space-y-3">
+                <p className="text-[#091F5B] font-semibold text-sm md:text-base">
+                  Jika ada pertanyaan terkait form, silakan hubungi CP berikut:
+                </p>
+                <div className="flex flex-col gap-2">
+                  {CONTACT_PERSONS.map((contact) => (
+                    <a
+                      key={contact.name}
+                      href={contact.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between p-3 rounded-xl bg-white/40 hover:bg-white/60 transition-colors border border-[#091F5B]/10 shadow-sm"
+                    >
+                      <span className="font-semibold text-[#091F5B]">{contact.name}</span>
+                      <span className="text-[#091F5B] font-medium">{contact.phone}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
 
             </form>
@@ -459,18 +547,18 @@ export default function RegistrationPage() {
                 </DialogDescription>
               </DialogHeader>
               <div className="flex flex-col gap-3 py-4">
-                <a href="https://wa.me/6281937542183" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-3 rounded-xl bg-white/40 hover:bg-white/60 transition-colors border border-[#091F5B]/10 group shadow-sm">
-                  <span className="font-semibold text-[#091F5B]">Kiki</span>
-                  <span className="text-[#091F5B] font-medium group-hover:scale-105 transition-transform">+62 819-3754-2183</span>
-                </a>
-                <a href="https://wa.me/6287857610552" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-3 rounded-xl bg-white/40 hover:bg-white/60 transition-colors border border-[#091F5B]/10 group shadow-sm">
-                  <span className="font-semibold text-[#091F5B]">Eva</span>
-                  <span className="text-[#091F5B] font-medium group-hover:scale-105 transition-transform">+62 878-5761-0552</span>
-                </a>
-                <a href="https://wa.me/6287768566204" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-3 rounded-xl bg-white/40 hover:bg-white/60 transition-colors border border-[#091F5B]/10 group shadow-sm">
-                  <span className="font-semibold text-[#091F5B]">Jim</span>
-                  <span className="text-[#091F5B] font-medium group-hover:scale-105 transition-transform">+62 877-6856-6204</span>
-                </a>
+                {CONTACT_PERSONS.map((contact) => (
+                  <a
+                    key={contact.name}
+                    href={contact.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-3 rounded-xl bg-white/40 hover:bg-white/60 transition-colors border border-[#091F5B]/10 group shadow-sm"
+                  >
+                    <span className="font-semibold text-[#091F5B]">{contact.name}</span>
+                    <span className="text-[#091F5B] font-medium group-hover:scale-105 transition-transform">{contact.phone}</span>
+                  </a>
+                ))}
               </div>
               <DialogFooter className="sm:justify-center">
                 <Button type="button" onClick={() => window.location.href = "/our-events"} className="bg-[#091F5B] hover:bg-[#091F5B]/90 text-white w-full rounded-xl h-12 text-base font-semibold shadow-md">
