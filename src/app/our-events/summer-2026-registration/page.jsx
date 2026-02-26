@@ -20,10 +20,11 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Loader2 } from "lucide-react";
 import svgPaths from "@/imports/svg-aryojtau6r";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const FALLBACK_STAR_PATH =
   "M12 2.5l2.9 6 6.6.9-4.8 4.6 1.1 6.5L12 17.9 6.2 20.5l1.1-6.5-4.8-4.6 6.6-.9L12 2.5z";
@@ -181,6 +182,7 @@ export default function RegistrationPage() {
   // State machine: 'idle' | 'submitting' | 'success'
   const [submissionState, setSubmissionState] = useState('idle');
   const [fileError, setFileError] = useState("");
+  const isSubmittingRef = useRef(false);
 
   // GANTI DENGAN URL DARI GOOGLE APPS SCRIPT ANDA
   // Pastikan Anda sudah deploy script seperti yang dijelaskan sebelumnya
@@ -230,6 +232,12 @@ export default function RegistrationPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmittingRef.current) return;
+    isSubmittingRef.current = true;
+    
+    // Generate a unique ID for this submission attempt to prevent duplicates
+    const submissionId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).substr(2);
+
     const form = e.target;
     const formData = new FormData(form);
     setFileError("");
@@ -240,6 +248,7 @@ export default function RegistrationPage() {
       if (errorMessage) {
         setFileError(errorMessage);
         alert(errorMessage);
+        isSubmittingRef.current = false;
         return;
       }
     }
@@ -264,13 +273,18 @@ export default function RegistrationPage() {
       const payload = {};
 
       // Text fields - MENGGUNAKAN KEY YANG SESUAI DENGAN GOOGLE APPS SCRIPT
+      payload.submissionId = submissionId;
       payload.nama = formData.get('nama');
       payload.nim = formData.get('nim');
       payload.no_telp = formData.get('no_telp');
       payload.mbti = formData.get('mbti');
+      payload.department = formData.get('department');
+      payload.major = formData.get('major');
+      payload.kkn_status = formData.get('kkn_status');
       payload.role1 = formData.get('role1');
       payload.role2 = formData.get('role2');
-      payload.kegiatan = formData.get('kegiatan');
+      payload.talents = formData.get('talents');
+      payload.current_activities = formData.get('current_activities');
       payload.motivation = formData.get('motivation');
       
       // File fields processing
@@ -326,6 +340,8 @@ export default function RegistrationPage() {
       console.error("Submission Error:", error);
       alert(`Failed to submit registration: ${error.message}. Please try again or contact support.`);
       setSubmissionState("idle");
+    } finally {
+      isSubmittingRef.current = false;
     }
   };
 
@@ -472,6 +488,40 @@ export default function RegistrationPage() {
                   <Input id="mbti" name="mbti" required placeholder="e.g., ENFP" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] focus-visible:ring-[#091F5B] placeholder:text-gray-500/80 rounded-xl h-11" />
                 </div>
               </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="department" className="text-[#091F5B] font-semibold text-base">Department</Label>
+                  <Input id="department" name="department" required placeholder="Your Department" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] focus-visible:ring-[#091F5B] placeholder:text-gray-500/80 rounded-xl h-11" />
+                </div>
+                 <div className="space-y-2">
+                  <Label htmlFor="major" className="text-[#091F5B] font-semibold text-base">Major</Label>
+                  <Input id="major" name="major" required placeholder="Your Major" className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] focus-visible:ring-[#091F5B] placeholder:text-gray-500/80 rounded-xl h-11" />
+                </div>
+              </div>
+              <div className="">
+                <Label className="text-[#091F5B] font-semibold text-base">Are you UNRAM's student registered for KKN this semester?</Label>
+                <p className="text-sm text-gray-400 pb-3">* student with KKN registered will be prioritized</p>
+                <RadioGroup name="kkn_status" required className="flex flex-row gap-4">
+                  <div className="flex-1">
+                    <RadioGroupItem value="Yes" id="kkn_yes" className="peer sr-only" />
+                    <Label
+                      htmlFor="kkn_yes"
+                      className="flex items-center justify-center w-full px-4 py-3 bg-white/60 border-2 border-[#091F5B]/20 hover:bg-white/80 rounded-xl cursor-pointer peer-data-[state=checked]:border-[#091F5B] peer-data-[state=checked]:bg-[#091F5B]/10 transition-all text-[#091F5B] font-medium"
+                    >
+                      Yes
+                    </Label>
+                  </div>
+                  <div className="flex-1">
+                    <RadioGroupItem value="No" id="kkn_no" className="peer sr-only" />
+                    <Label
+                      htmlFor="kkn_no"
+                      className="flex items-center justify-center w-full px-4 py-3 bg-white/60 border-2 border-[#091F5B]/20 hover:bg-white/80 rounded-xl cursor-pointer peer-data-[state=checked]:border-[#091F5B] peer-data-[state=checked]:bg-[#091F5B]/10 transition-all text-[#091F5B] font-medium"
+                    >
+                      No
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                <div className="space-y-2">
@@ -507,9 +557,14 @@ export default function RegistrationPage() {
                </div>
               </div>
 
-               <div className="space-y-2">
-                <Label htmlFor="kegiatan" className="text-[#091F5B] font-semibold text-base">Current Activities</Label>
-                <Textarea id="kegiatan" name="kegiatan" required placeholder="Organizations, internships, etc." className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] focus-visible:ring-[#091F5B] placeholder:text-gray-500/80 rounded-xl" />
+              <div className="space-y-2">
+                <Label htmlFor="talents" className="text-[#091F5B] font-semibold text-base">Tell us if you have talents!</Label>
+                <Textarea id="talents" name="talents" required placeholder="Dancing, singing, etc." className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] focus-visible:ring-[#091F5B] placeholder:text-gray-500/80 rounded-xl" />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="current_activities" className="text-[#091F5B] font-semibold text-base">Current Activities</Label>
+                <Textarea id="current_activities" name="current_activities" required placeholder="Organizations, internships, etc." className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] focus-visible:ring-[#091F5B] placeholder:text-gray-500/80 rounded-xl" />
               </div>
               
               <div className="space-y-2">
@@ -561,7 +616,15 @@ export default function RegistrationPage() {
                 </div>
 
                  <div className="">
-                  <Label htmlFor="surat_rekomendasi" className="text-[#091F5B] font-semibold text-base">Recommendation Letter</Label>
+                    <div className="flex flex-col items-start gap-2 mb-2">
+                      <Label htmlFor="surat_rekomendasi" className="text-[#091F5B] font-semibold text-base">Recommendation Letter</Label>
+                      <Button asChild size="sm" variant="outline" className="border-[#091F5B]/30 text-[#091F5B] hover:bg-[#091F5B]/10 hover:text-[#091F5B] h-8 rounded-lg px-3">
+                        <a href="/files/Recommendation_Nadya_Azzahra.docx" download="Recommendation_Letter_Template.docx" className="flex items-center gap-2">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                           Download Template
+                        </a>
+                      </Button>
+                    </div>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
                   <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" required accept={FILE_VALIDATION_RULES.surat_rekomendasi.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
