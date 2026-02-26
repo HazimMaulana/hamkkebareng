@@ -619,7 +619,7 @@ export default function RegistrationPage() {
                     <div className="flex flex-col items-start gap-2 mb-2">
                       <Label htmlFor="surat_rekomendasi" className="text-[#091F5B] font-semibold text-base">Recommendation Letter</Label>
                       <Button asChild size="sm" variant="outline" className="border-[#091F5B]/30 text-[#091F5B] hover:bg-[#091F5B]/10 hover:text-[#091F5B] h-8 rounded-lg px-3">
-                        <a href="/files/Recommendation_Nadya_Azzahra.docx" download="Recommendation_Letter_Template.docx" className="flex items-center gap-2">
+                        <a href="/files/Recommendation_Letter.docx" download="Recommendation_Letter_Template.docx" className="flex items-center gap-2">
                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                            Download Template
                         </a>
