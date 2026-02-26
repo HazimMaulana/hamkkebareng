@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import svgPaths from "@/imports/svg-aryojtau6r";
 import { useState, useRef } from "react";
 
@@ -159,6 +159,11 @@ const FILE_VALIDATION_RULES = {
   },
 };
 
+const SCHEDULE_IMAGES = [
+  { src: "/images/schedule.png", alt: "Study schedule example 1" },
+  { src: "/images/schedule-sia.jpeg", alt: "Study schedule example 2" },
+];
+
 const CONTACT_PERSONS = [
   {
     name: "Kiki",
@@ -182,6 +187,7 @@ export default function RegistrationPage() {
   // State machine: 'idle' | 'submitting' | 'success'
   const [submissionState, setSubmissionState] = useState('idle');
   const [fileError, setFileError] = useState("");
+  const [previewImage, setPreviewImage] = useState(null);
   const isSubmittingRef = useRef(false);
 
   // GANTI DENGAN URL DARI GOOGLE APPS SCRIPT ANDA
@@ -228,6 +234,10 @@ export default function RegistrationPage() {
     }
 
     setFileError("");
+  };
+
+  const handleSchedulePreview = (image) => {
+    setPreviewImage(image);
   };
 
   const handleSubmit = async (e) => {
@@ -592,7 +602,27 @@ export default function RegistrationPage() {
                 </div>
 
                 <div className="">
-                  <Label htmlFor="jadwal" className="text-[#091F5B] font-semibold text-base">Study Schedule (Highlight) & SIA Schedule</Label>
+                  <Label htmlFor="jadwal" className="text-[#091F5B] font-semibold text-base">Study Schedule (Highlight) or SIA Schedule</Label>
+                  <div className="flex flex-row flex-wrap items-start gap-4">
+                    {SCHEDULE_IMAGES.map((image, idx) => (
+                      <button
+                        key={`schedule-${idx}`}
+                        type="button"
+                        onClick={() => handleSchedulePreview(image)}
+                        className="group relative rounded-xl border border-[#091F5B]/15 bg-white/60 p-2 shadow-sm transition hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#091F5B]"
+                      >
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          className="h-32 w-48 sm:h-36 sm:w-56 object-contain rounded-lg bg-white"
+                        />
+                        <span className="pointer-events-none absolute inset-0 rounded-xl bg-[#091F5B]/5 opacity-0 transition-opacity group-hover:opacity-100" />
+                        <span className="pointer-events-none absolute bottom-2 right-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-semibold text-[#091F5B] shadow-sm">
+                          Click to zoom
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                   <p className="text-xs text-gray-500 pb-2">PDF File or IMG (Maks. 2MB)</p>
                   <Input id="jadwal" name="jadwal" type="file" required accept={FILE_VALIDATION_RULES.jadwal.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
@@ -712,6 +742,31 @@ export default function RegistrationPage() {
                 </Button>
               </DialogFooter>
             </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={previewImage !== null} onOpenChange={(open) => {
+        if (!open) {
+          setPreviewImage(null);
+        }
+      }}>
+        <DialogContent className="sm:max-w-2xl bg-white/90 backdrop-blur-md border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] rounded-3xl [&>button]:hidden flex items-center justify-center">
+          <button
+            onClick={() => setPreviewImage(null)}
+            className="absolute right-4 top-4 rounded-full bg-white/80 hover:bg-white p-1 transition-colors z-50"
+          >
+            <X className="h-5 w-5 text-[#091F5B]" />
+          </button>
+          {previewImage && (
+            <div className="flex flex-col items-center justify-center w-full">
+              <img
+                src={previewImage.src}
+                alt={previewImage.alt}
+                className="max-h-[70vh] max-w-full object-contain rounded-lg"
+              />
+              <p className="mt-4 text-sm text-[#091F5B]/70 text-center">{previewImage.alt}</p>
+            </div>
           )}
         </DialogContent>
       </Dialog>
