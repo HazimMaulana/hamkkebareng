@@ -546,6 +546,7 @@ export default function RegistrationPage() {
                     <SelectItem value="Secretary">Secretary (Sekretaris)</SelectItem>
                     <SelectItem value="Tech Expert">Tech Expert</SelectItem>
                     <SelectItem value="Creative">Creative</SelectItem>
+                    <SelectItem value="Public Relation">Public Relation</SelectItem>
                   </SelectContent>
                 </Select>
                </div>
@@ -562,6 +563,7 @@ export default function RegistrationPage() {
                     <SelectItem value="Secretary">Secretary (Sekretaris)</SelectItem>
                     <SelectItem value="Tech Expert">Tech Expert</SelectItem>
                     <SelectItem value="Creative">Creative</SelectItem>
+                    <SelectItem value="Public Relation">Public Relation</SelectItem>
                   </SelectContent>
                 </Select>
                </div>
