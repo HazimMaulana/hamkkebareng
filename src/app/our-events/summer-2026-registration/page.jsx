@@ -600,7 +600,7 @@ export default function RegistrationPage() {
                 <div className="">
                   <Label htmlFor="porto" className="text-[#091F5B] font-semibold text-base">Portfolio</Label>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="porto" name="porto" type="file" required accept={FILE_VALIDATION_RULES.porto.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="porto" name="porto" type="file" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                 <div className="">
