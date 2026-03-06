@@ -107,6 +107,8 @@ const FILE_FIELDS = [
   "surat_rekomendasi",
 ];
 
+const OPTIONAL_FILE_FIELDS = new Set(["porto", "korean_proficiency"]);
+
 const FILE_VALIDATION_RULES = {
   cv: {
     label: "Curriculum Vitae (CV)",
@@ -195,9 +197,10 @@ export default function RegistrationPage() {
   const WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL"; 
 
   const getFileExtension = (filename = "") => filename.split(".").pop()?.toLowerCase() ?? "";
+  const hasSelectedFile = (file) => file && typeof file === "object" && file.size > 0;
 
   const validateFile = (fieldName, file) => {
-    if (!file || file.size === 0) {
+    if (!hasSelectedFile(file)) {
       return "";
     }
 
@@ -254,6 +257,16 @@ export default function RegistrationPage() {
 
     for (const fieldName of FILE_FIELDS) {
       const file = formData.get(fieldName);
+      const isOptionalField = OPTIONAL_FILE_FIELDS.has(fieldName);
+      if (!hasSelectedFile(file) && !isOptionalField) {
+        const rule = FILE_VALIDATION_RULES[fieldName];
+        const requiredError = `${rule?.label || fieldName} wajib diunggah.`;
+        setFileError(requiredError);
+        alert(requiredError);
+        isSubmittingRef.current = false;
+        return;
+      }
+
       const errorMessage = validateFile(fieldName, file);
       if (errorMessage) {
         setFileError(errorMessage);
@@ -300,7 +313,7 @@ export default function RegistrationPage() {
       // File fields processing
       for (const fieldName of FILE_FIELDS) {
         const file = formData.get(fieldName);
-        if (file && file.size > 0) {
+        if (hasSelectedFile(file)) {
            // Proses file menjadi object { mimeType, data: base64 }
            const fileData = await readFile(file);
            payload[fieldName] = {
@@ -599,8 +612,8 @@ export default function RegistrationPage() {
 
                 <div className="">
                   <Label htmlFor="porto" className="text-[#091F5B] font-semibold text-base">Portfolio</Label>
-                  <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="porto" name="porto" type="file" onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <p className="text-xs text-gray-500 pb-2">PDF File (Optional, Maks. 2MB)</p>
+                  <Input id="porto" name="porto" type="file" accept={FILE_VALIDATION_RULES.porto.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
 
                 <div className="">
