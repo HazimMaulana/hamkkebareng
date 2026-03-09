@@ -107,7 +107,7 @@ const FILE_FIELDS = [
   "surat_rekomendasi",
 ];
 
-const OPTIONAL_FILE_FIELDS = new Set(["porto", "korean_proficiency"]);
+const OPTIONAL_FILE_FIELDS = new Set(["porto", "korean_proficiency", "surat_rekomendasi"]);
 
 const FILE_VALIDATION_RULES = {
   cv: {
@@ -670,7 +670,7 @@ export default function RegistrationPage() {
                         </a>
                       </Button>
                     </div>
-                  <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
+                  <p className="text-xs text-gray-500 pb-2">PDF File (Optional, Maks. 2MB)</p>
                   <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" accept={FILE_VALIDATION_RULES.surat_rekomendasi.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
               </div>
