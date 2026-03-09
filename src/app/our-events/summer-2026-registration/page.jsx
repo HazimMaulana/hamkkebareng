@@ -671,7 +671,7 @@ export default function RegistrationPage() {
                       </Button>
                     </div>
                   <p className="text-xs text-gray-500 pb-2">PDF File (Maks. 2MB)</p>
-                  <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" required accept={FILE_VALIDATION_RULES.surat_rekomendasi.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
+                  <Input id="surat_rekomendasi" name="surat_rekomendasi" type="file" accept={FILE_VALIDATION_RULES.surat_rekomendasi.accept} onChange={handleFileChange} className="bg-white/60 border-2 border-[#091F5B]/20 focus:border-[#091F5B] file:text-[#091F5B] file:font-semibold rounded-xl" />
                 </div>
               </div>
 
